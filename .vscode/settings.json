@@ -1,0 +1,14 @@
+{
+    "files.exclude": {
+        "**/*.meta": true,
+        "Assets/Materials": true,
+        "Assets/Resources": true,
+        "Assets/Scenes": true,
+        "Library": true,
+        "Logs": true,
+        "obj": true,
+        "Packages": true,
+        "ProjectSettings": true,
+        "Temp": true
+    }
+}
