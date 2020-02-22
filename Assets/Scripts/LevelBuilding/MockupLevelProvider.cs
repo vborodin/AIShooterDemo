@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 namespace AIShooterDemo
 {
@@ -11,9 +12,9 @@ namespace AIShooterDemo
             SourceDirectory = sourceDirectory;
         }
 
-        public GameObject Next()
+        public IEnumerator<GameObject> GetEnumerator()
         {
-            return Resources.Load<GameObject>($"{SourceDirectory}/MockupLevel");
+            yield return Resources.Load<GameObject>($"{SourceDirectory}/MockupLevel");
         }
     }
 }

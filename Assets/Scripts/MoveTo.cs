@@ -27,20 +27,25 @@ namespace AIShooterDemo
             }
 
             levelProvider = factory.GetLevelProvider();
-            var level = Instantiate(levelProvider.Next());
+            var levels = levelProvider.GetEnumerator();
+            if (levels.MoveNext())
+            {
+                var level = Instantiate(levels.Current);
 
-            var agent = GetComponent<NavMeshAgent>();
-            agent.enabled = true;
-            var levelData = level.GetComponent<LevelData>();
-            if (levelData != null)
-            {
-                agent.transform.position = levelData.StartPosition;
-                agent.destination = levelData.EndPosition;
+                var agent = GetComponent<NavMeshAgent>();
+                agent.enabled = true;
+                var levelData = level.GetComponent<LevelData>();
+                if (levelData != null)
+                {
+                    agent.transform.position = levelData.StartPosition;
+                    agent.destination = levelData.EndPosition;
+                }
+                else
+                {
+                    Debug.LogError("Loaded level doesn't contain any level data!");
+                }
             }
-            else
-            {
-                Debug.LogError("Loaded level doesn't contain any level data!");
-            }
+
         }
     }
 }

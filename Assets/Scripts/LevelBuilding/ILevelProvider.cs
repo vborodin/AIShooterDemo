@@ -1,9 +1,10 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace AIShooterDemo
 {
     public interface ILevelProvider
     {
-        GameObject Next();
+        IEnumerator<GameObject> GetEnumerator();
     }
 }
