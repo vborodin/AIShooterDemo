@@ -11,7 +11,6 @@ namespace AIShooterDemo
 
         private void Awake()
         {
-#warning BAD CODE
             Settings settings = Resources.Load<Settings>("Settings");
 
             ILevelProviderFactory factory;
