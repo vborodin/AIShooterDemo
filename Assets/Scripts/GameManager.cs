@@ -13,8 +13,8 @@ namespace AIShooterDemo
 
             if (levels.MoveNext())
             {
-                var level = Instantiate(levels.Current);
-                var levelData = level.GetComponent<LevelData>();
+                GameObject level = Instantiate(levels.Current);
+                LevelData levelData = level.GetComponent<LevelData>();
 
                 CreatePlayer(settings.PlayerType, levelData);
             }
@@ -33,7 +33,7 @@ namespace AIShooterDemo
                     Debug.LogWarning($"Unknown player type: {playerType}");
                     break;
             }
-            var player = characterFactory.CreateCharacter();
+            GameObject player = characterFactory.CreateCharacter();
             player.transform.position = levelData.StartPosition;
 
             return player;
