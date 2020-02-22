@@ -4,14 +4,14 @@ using UnityEngine.AI;
 namespace AIShooterDemo
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class MoveTo : MonoBehaviour
+    public class MockupCharacter : CharacterBase<MockupCharacterData>
     {
-        public void Init(Vector3 startPosition, Vector3 endPosition)
+        protected override void Init(MockupCharacterData data)
         {
             var agent = GetComponent<NavMeshAgent>();
             agent.enabled = true;
-            agent.transform.position = startPosition;
-            agent.destination = endPosition;
+            agent.destination = data.destination;
+            Debug.Log($"{agent.destination}");
         }
     }
 }

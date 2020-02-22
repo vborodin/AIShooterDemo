@@ -6,39 +6,54 @@ namespace AIShooterDemo
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] GameObject playerPrefab = null;
-
-        void Start()
+        private void Start()
         {
-            //load settings
             Settings settings = Resources.Load<Settings>("Settings");
+            IEnumerator<GameObject> levels = LoadLevels(settings.LevelProvider);
 
-            //create factory
+            if (levels.MoveNext())
+            {
+                var level = Instantiate(levels.Current);
+                var levelData = level.GetComponent<LevelData>();
+
+                CreatePlayer(settings.PlayerType, levelData);
+            }
+        }
+
+        private GameObject CreatePlayer(string playerType, LevelData levelData)
+        {
+            ICharacterFactory characterFactory;
+            switch (playerType)
+            {
+                case "Mockup":
+                    characterFactory = new MockupCharacterFactory(levelData);
+                    break;
+                default:
+                    characterFactory = new MockupCharacterFactory(levelData);
+                    Debug.LogWarning($"Unknown player type: {playerType}");
+                    break;
+            }
+            var player = characterFactory.CreateCharacter();
+            player.transform.position = levelData.StartPosition;
+
+            return player;
+        }
+
+        private IEnumerator<GameObject> LoadLevels(string providerName)
+        {
             ILevelProviderFactory factory;
-            switch (settings.LevelProvider)
+            switch (providerName)
             {
                 case "Mockup":
                     factory = new MockupLevelProviderFactory();
                     break;
                 default:
                     factory = new MockupLevelProviderFactory();
-                    Debug.LogWarning($"Unknown level provider: {settings.LevelProvider}");
+                    Debug.LogWarning($"Unknown level provider: {providerName}");
                     break;
             }
-
-            //get levelProvider
             ILevelProvider levelProvider = factory.GetLevelProvider();
-            IEnumerator<GameObject> levels = levelProvider.GetEnumerator();
-
-            //create first level
-            if (levels.MoveNext())
-            {
-                var level = Instantiate(levels.Current);
-
-                //create player and set destination
-                var levelData = level.GetComponent<LevelData>();
-                Instantiate(playerPrefab).GetComponent<MoveTo>().Init(levelData.StartPosition, levelData.EndPosition);
-            }
+            return levelProvider.GetEnumerator();
         }
     }
 }

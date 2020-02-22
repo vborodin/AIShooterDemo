@@ -1,12 +1,14 @@
 using UnityEngine;
-using System;
 
 namespace AIShooterDemo
 {
     [CreateAssetMenu]
     public class Settings : ScriptableObject
     {
-        [SerializeField] private string levelProvider = "";
+        [SerializeField] private string levelProvider = "Mockup";
         public string LevelProvider => levelProvider;
+
+        [SerializeField] private string playerType = "Mockup";
+        public string PlayerType => playerType;
     }
 }
