@@ -33,8 +33,7 @@ namespace AIShooterDemo
                     Debug.LogWarning($"Unknown player type: {playerType}");
                     break;
             }
-            GameObject player = characterFactory.CreateCharacter();
-            player.transform.position = levelData.StartPosition;
+            GameObject player = characterFactory.CreateCharacter(levelData.StartPosition);
 
             return player;
         }

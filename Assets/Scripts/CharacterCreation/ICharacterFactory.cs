@@ -4,6 +4,6 @@ namespace AIShooterDemo
 {
     interface ICharacterFactory
     {
-        GameObject CreateCharacter();
+        GameObject CreateCharacter(Vector3 position);
     }
 }
