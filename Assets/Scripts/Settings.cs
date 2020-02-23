@@ -10,5 +10,8 @@ namespace AIShooterDemo
 
         [SerializeField] private string playerType = "Mockup";
         public string PlayerType => playerType;
+
+        [SerializeField] private string solverType = "PassThrough";
+        public string SolverType => solverType;
     }
 }

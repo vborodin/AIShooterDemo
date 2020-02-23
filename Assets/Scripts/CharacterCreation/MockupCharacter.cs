@@ -11,7 +11,6 @@ namespace AIShooterDemo
             var agent = GetComponent<NavMeshAgent>();
             agent.enabled = true;
             agent.destination = data.destination;
-            Debug.Log($"{agent.destination}");
         }
     }
 }
