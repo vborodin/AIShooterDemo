@@ -5,16 +5,16 @@ namespace AIShooterDemo
     public class PassThroughGameSolverFactory : IGameSolverFactory
     {
         Vector3 destination;
-        float distanceDelta;
-        public PassThroughGameSolverFactory(Vector3 destination, float distanceDelta)
+        float distanceEpsilon;
+        public PassThroughGameSolverFactory(Vector3 destination, float distanceEpsilon)
         {
             this.destination = destination;
-            this.distanceDelta = distanceDelta;
+            this.distanceEpsilon = distanceEpsilon;
         }
 
         public IGameSolver CreateGameSolver()
         {
-            return new PassThroughGameSolver(destination, distanceDelta);
+            return new PassThroughGameSolver(destination, distanceEpsilon);
         }
     }
 }

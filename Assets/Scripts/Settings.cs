@@ -13,5 +13,8 @@ namespace AIShooterDemo
 
         [SerializeField] private string solverType = "PassThrough";
         public string SolverType => solverType;
+
+        [SerializeField] private float distanceEpsilon = 1.5f;
+        public float DistanceEpsilon => distanceEpsilon;
     }
 }

@@ -6,7 +6,7 @@ namespace AIShooterDemo
     public class GameManager : MonoBehaviour
     {
         IEnumerator<GameObject> levels;
-        GameObject player;
+        ICharacter player;
         IGameSolver solver;
 
         private void Start()
@@ -25,7 +25,7 @@ namespace AIShooterDemo
 
                 player = CreatePlayer(settings.PlayerType, levelData);
 
-                solver = CreateGameSolver(settings.SolverType, levelData);
+                solver = CreateGameSolver(settings.SolverType, levelData, settings);
             }
         }
 
@@ -49,17 +49,16 @@ namespace AIShooterDemo
             }
         }
 
-        private IGameSolver CreateGameSolver(string solverType, LevelData levelData)
+        private IGameSolver CreateGameSolver(string solverType, LevelData levelData, Settings settings)
         {
             IGameSolverFactory gameSolverFactory;
             switch (solverType)
             {
                 case "PassThrough":
-#warning constant value
-                    gameSolverFactory = new PassThroughGameSolverFactory(levelData.EndPosition, 1.5f);
+                    gameSolverFactory = new PassThroughGameSolverFactory(levelData.EndPosition, settings.DistanceEpsilon);
                     break;
                 default:
-                    gameSolverFactory = new PassThroughGameSolverFactory(levelData.EndPosition, 1.5f);
+                    gameSolverFactory = new PassThroughGameSolverFactory(levelData.EndPosition, settings.DistanceEpsilon);
                     Debug.LogWarning($"Unknown solver type: {solverType}");
                     break;
             }
@@ -75,11 +74,10 @@ namespace AIShooterDemo
                 switch (p)
                 {
                     case "health":
-#warning constant health
-                        data.SetValue("health", 100f);
+                        data.SetValue("health", player.Health);
                         break;
                     case "position":
-                        data.SetValue("position", player.transform.position);
+                        data.SetValue("position", player.Position);
                         break;
                     default:
                         Debug.LogWarning($"Unknown GameSolverParameter: {p}");
@@ -89,22 +87,20 @@ namespace AIShooterDemo
             return data;
         }
 
-        private GameObject CreatePlayer(string playerType, LevelData levelData)
+        private ICharacter CreatePlayer(string playerType, LevelData levelData)
         {
-            ICharacterFactory characterFactory;
+            CharacterFactory characterFactory = new CharacterFactory();
             switch (playerType)
             {
                 case "Mockup":
-                    characterFactory = new MockupCharacterFactory(levelData);
+                    characterFactory = new CharacterFactory();
                     break;
                 default:
-                    characterFactory = new MockupCharacterFactory(levelData);
+                    characterFactory = new CharacterFactory();
                     Debug.LogWarning($"Unknown player type: {playerType}");
                     break;
             }
-            GameObject player = characterFactory.CreateCharacter(levelData.StartPosition);
-
-            return player;
+            return characterFactory.CreateCharacter(levelData.StartPosition, "MockupCharacter");
         }
 
         private IEnumerator<GameObject> LoadLevels(string providerName)
