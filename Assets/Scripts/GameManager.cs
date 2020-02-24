@@ -23,7 +23,7 @@ namespace AIShooterDemo
                     Debug.LogWarning("Level doesn't contain any LevelData");
                 }
 
-                player = CreatePlayer(settings.PlayerType, levelData);
+                player = CreatePlayer(settings.PlayerType, settings.PlayerBehaviour, settings.PlayerBehaviourTemplate, levelData);
 
                 solver = CreateGameSolver(settings.SolverType, levelData, settings);
             }
@@ -87,20 +87,11 @@ namespace AIShooterDemo
             return data;
         }
 
-        private ICharacter CreatePlayer(string playerType, ILevelData levelData)
+        private ICharacter CreatePlayer(string playerType, string behaviourType, string behaviourTemplate, ILevelData levelData)
         {
+#warning abstraction needed
             CharacterFactory characterFactory = new CharacterFactory();
-            switch (playerType)
-            {
-                case "Mockup":
-                    characterFactory = new CharacterFactory();
-                    break;
-                default:
-                    characterFactory = new CharacterFactory();
-                    Debug.LogWarning($"Unknown player type: {playerType}");
-                    break;
-            }
-            return characterFactory.CreateCharacter(levelData.StartPosition, "MockupCharacter", levelData);
+            return characterFactory.CreateCharacter(levelData.StartPosition, playerType, behaviourType, behaviourTemplate, levelData);
         }
 
         private IEnumerator<GameObject> LoadLevels(string providerName)

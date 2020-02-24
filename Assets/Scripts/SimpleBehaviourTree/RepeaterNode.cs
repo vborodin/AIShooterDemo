@@ -30,7 +30,7 @@ namespace AIShooterDemo
             }
 
             iterated++;
-            if (iterated >= iterations)
+            if (iterated > iterations)
             {
                 return NodeState.Success;
             }
