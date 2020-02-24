@@ -85,18 +85,7 @@ namespace AIShooterDemo
 
         private IEnumerator<GameObject> LoadLevels(string providerName)
         {
-            ILevelProviderFactory factory;
-            switch (providerName)
-            {
-                case "Mockup":
-                    factory = new MockupLevelProviderFactory();
-                    break;
-                default:
-                    factory = new MockupLevelProviderFactory();
-                    Debug.LogWarning($"Unknown level provider: {providerName}");
-                    break;
-            }
-            ILevelProvider levelProvider = factory.GetLevelProvider();
+            LevelProviderBase levelProvider = LevelProviderBase.Create(providerName);
             return levelProvider.GetEnumerator();
         }
     }

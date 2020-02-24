@@ -3,18 +3,11 @@ using System.Collections.Generic;
 
 namespace AIShooterDemo
 {
-    public class MockupLevelProvider : ILevelProvider
+    public class MockupLevelProvider : LevelProviderBase
     {
-        public string SourceDirectory { get; private set; }
-
-        public MockupLevelProvider(string sourceDirectory)
+        public override IEnumerator<GameObject> GetEnumerator()
         {
-            SourceDirectory = sourceDirectory;
-        }
-
-        public IEnumerator<GameObject> GetEnumerator()
-        {
-            yield return Resources.Load<GameObject>($"{SourceDirectory}/MockupLevel");
+            yield return Resources.Load<GameObject>("MockupLevelProvider/MockupLevel");
         }
     }
 }
