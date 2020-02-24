@@ -51,18 +51,8 @@ namespace AIShooterDemo
 
         private IGameSolver CreateGameSolver(string solverType, ILevelData levelData, Settings settings)
         {
-            IGameSolverFactory gameSolverFactory;
-            switch (solverType)
-            {
-                case "PassThrough":
-                    gameSolverFactory = new PassThroughGameSolverFactory(levelData.Destination, settings.DistanceEpsilon);
-                    break;
-                default:
-                    gameSolverFactory = new PassThroughGameSolverFactory(levelData.Destination, settings.DistanceEpsilon);
-                    Debug.LogWarning($"Unknown solver type: {solverType}");
-                    break;
-            }
-            IGameSolver solver = gameSolverFactory.CreateGameSolver();
+            GameSolverFactory factory = new GameSolverFactory(levelData, settings);
+            IGameSolver solver = factory.CreateGameSolver(solverType);
             return solver;
         }
 

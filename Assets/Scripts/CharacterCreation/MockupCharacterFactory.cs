@@ -36,7 +36,7 @@ namespace AIShooterDemo
             switch (behaviourTemplate)
             {
                 case "Walker":
-                    tree = new RepeaterNode(new MoveNode(destination, 1.5f, 2), 10);
+                    tree = new RepeaterNode(new MoveNode(destination, 1.5f, 2), 20);
                     break;
                 default:
                     Debug.LogWarning($"Unknown behaviour template: {behaviourTemplate}");
