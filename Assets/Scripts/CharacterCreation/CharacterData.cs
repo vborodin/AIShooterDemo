@@ -11,8 +11,8 @@ namespace AIShooterDemo
         public float Damage => damage;
         [SerializeField] private float damage = 1;
 
-        public float AttackSpeed => attackSpeed;
-        [SerializeField] private float attackSpeed = 1;
+        public float AttackRate => attackRate;
+        [SerializeField] private float attackRate = 1;
 
         public float Speed => speed;
         [SerializeField] private float speed = 1;

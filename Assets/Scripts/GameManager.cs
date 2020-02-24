@@ -17,7 +17,7 @@ namespace AIShooterDemo
             if (levels.MoveNext())
             {
                 GameObject level = Instantiate(levels.Current);
-                LevelData levelData = level.GetComponent<LevelData>();
+                ILevelData levelData = level.GetComponent<ILevelData>();
                 if (levelData == null)
                 {
                     Debug.LogWarning("Level doesn't contain any LevelData");
@@ -35,13 +35,13 @@ namespace AIShooterDemo
             switch (state)
             {
                 case GameState.InProgress:
-                    Debug.Log("In progress...");
+                    //Debug.Log("In progress...");
                     break;
                 case GameState.Win:
                     Debug.Log("You win!");
                     break;
                 case GameState.Loss:
-                    Debug.Log("You lose!");
+                    //Debug.Log("You lose!");
                     break;
                 default:
                     Debug.LogWarning($"Unknown game state: {state}");
@@ -49,16 +49,16 @@ namespace AIShooterDemo
             }
         }
 
-        private IGameSolver CreateGameSolver(string solverType, LevelData levelData, Settings settings)
+        private IGameSolver CreateGameSolver(string solverType, ILevelData levelData, Settings settings)
         {
             IGameSolverFactory gameSolverFactory;
             switch (solverType)
             {
                 case "PassThrough":
-                    gameSolverFactory = new PassThroughGameSolverFactory(levelData.EndPosition, settings.DistanceEpsilon);
+                    gameSolverFactory = new PassThroughGameSolverFactory(levelData.Destination, settings.DistanceEpsilon);
                     break;
                 default:
-                    gameSolverFactory = new PassThroughGameSolverFactory(levelData.EndPosition, settings.DistanceEpsilon);
+                    gameSolverFactory = new PassThroughGameSolverFactory(levelData.Destination, settings.DistanceEpsilon);
                     Debug.LogWarning($"Unknown solver type: {solverType}");
                     break;
             }
@@ -87,7 +87,7 @@ namespace AIShooterDemo
             return data;
         }
 
-        private ICharacter CreatePlayer(string playerType, LevelData levelData)
+        private ICharacter CreatePlayer(string playerType, ILevelData levelData)
         {
             CharacterFactory characterFactory = new CharacterFactory();
             switch (playerType)
@@ -100,7 +100,7 @@ namespace AIShooterDemo
                     Debug.LogWarning($"Unknown player type: {playerType}");
                     break;
             }
-            return characterFactory.CreateCharacter(levelData.StartPosition, "MockupCharacter");
+            return characterFactory.CreateCharacter(levelData.StartPosition, "MockupCharacter", levelData);
         }
 
         private IEnumerator<GameObject> LoadLevels(string providerName)

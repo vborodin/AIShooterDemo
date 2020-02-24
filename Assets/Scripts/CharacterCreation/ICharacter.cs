@@ -6,5 +6,7 @@ namespace AIShooterDemo
     {
         float Health { get; }
         Vector3 Position { get; }
+        Vector3 Destination { get; }
+        void Move(Vector3 destination);
     }
 }

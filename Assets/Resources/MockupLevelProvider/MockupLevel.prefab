@@ -925,8 +925,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6784219084507106592}
-  - component: {fileID: 3319492668860562908}
   - component: {fileID: 9210665914128409821}
+  - component: {fileID: 98487926779058593}
   m_Layer: 0
   m_Name: MockupLevel
   m_TagString: Untagged
@@ -952,20 +952,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3319492668860562908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6784219084507106607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a467b25ac5f4e9c41ae42d75d80ce87f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startPosition: {fileID: 6784219084824421428}
-  endPosition: {fileID: 6784219084606620585}
 --- !u!114 &9210665914128409821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -995,6 +981,20 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: 468eecc373acec64e8901fca25bcf4be, type: 2}
+--- !u!114 &98487926779058593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6784219084507106607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 920084da67f555a4ca2e69350a0cf502, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPosition: {fileID: 6784219084824421428}
+  endPosition: {fileID: 6784219084606620585}
 --- !u!1 &6784219084606620584
 GameObject:
   m_ObjectHideFlags: 0
