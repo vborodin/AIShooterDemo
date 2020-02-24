@@ -9,6 +9,7 @@ namespace AIShooterDemo
         public float Health { get; private set; }
         public Vector3 Position => transform.position;
         public Vector3 Destination => levelData.Destination;
+        public bool IsDead => Health <= 0;
         private ILevelData levelData;
 
         public void Init(CharacterData data, ILevelData levelData)

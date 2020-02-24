@@ -23,7 +23,7 @@ namespace AIShooterDemo
                     Debug.LogWarning("Level doesn't contain any LevelData");
                 }
 
-                player = CreatePlayer(settings.PlayerType, settings.PlayerBehaviour, settings.PlayerBehaviourTemplate, levelData);
+                player = CreatePlayer(settings.PlayerType, settings.PlayerBehaviourType, settings.PlayerBehaviourTemplate, levelData, settings.PlayerFactoryType);
 
                 solver = CreateGameSolver(settings.SolverType, levelData, settings);
             }
@@ -87,10 +87,9 @@ namespace AIShooterDemo
             return data;
         }
 
-        private ICharacter CreatePlayer(string playerType, string behaviourType, string behaviourTemplate, ILevelData levelData)
+        private ICharacter CreatePlayer(string playerType, string behaviourType, string behaviourTemplate, ILevelData levelData, string factoryType)
         {
-#warning abstraction needed
-            CharacterFactory characterFactory = new CharacterFactory();
+            CharacterFactoryBase characterFactory = CharacterFactoryBase.Create(factoryType);
             return characterFactory.CreateCharacter(levelData.StartPosition, playerType, behaviourType, behaviourTemplate, levelData);
         }
 

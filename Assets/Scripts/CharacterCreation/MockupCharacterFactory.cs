@@ -2,11 +2,10 @@ using UnityEngine;
 
 namespace AIShooterDemo
 {
-    public class CharacterFactory
+    public class MockupCharacterFactory : CharacterFactoryBase
     {
-        public ICharacter CreateCharacter(Vector3 position, string characterType, string behaviourType, string behaviourTemplate, ILevelData levelData)
+        public override ICharacter CreateCharacter(Vector3 position, string characterType, string behaviourType, string behaviourTemplate, ILevelData levelData)
         {
-#warning need IFactory
 #warning too many responsibilities
             CharacterData characterData = Resources.Load<CharacterData>($"Characters/{characterType}");
 

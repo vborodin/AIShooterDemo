@@ -11,11 +11,14 @@ namespace AIShooterDemo
         [SerializeField] private string playerType = "MockupCharacter";
         public string PlayerType => playerType;
 
-        [SerializeField] private string playerBehaviour = "AI";
-        public string PlayerBehaviour => playerBehaviour;
+        [SerializeField] private string playerBehaviourType = "AI";
+        public string PlayerBehaviourType => playerBehaviourType;
 
         [SerializeField] private string playerBehaviourTemplate = "Walker";
         public string PlayerBehaviourTemplate => playerBehaviourTemplate;
+
+        [SerializeField] private string playerFactoryType = "MockupFactory";
+        public string PlayerFactoryType => playerFactoryType;
 
         [SerializeField] private string solverType = "PassThrough";
         public string SolverType => solverType;
