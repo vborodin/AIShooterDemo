@@ -8,22 +8,23 @@ namespace AIShooterDemo
         int iterations;
         int iterated;
 
+        public string Name => "Repeater";
+
         public RepeaterNode(INode child, int iterations)
         {
             this.child = child;
             this.iterations = iterations;
         }
 
-        public void Init(ICharacter context)
+        public void Init(ICharacter agent)
         {
             iterated = 0;
-            child.Init(context);
-            Debug.Log("Repeater init");
+            child.Init(agent);
         }
 
-        public NodeState Process(float timeDelta, ICharacter context)
+        public NodeState Process(float timeDelta, ICharacter agent)
         {
-            NodeState state = child.Process(timeDelta, context);
+            NodeState state = child.Process(timeDelta, agent);
             if (state == NodeState.Success || state == NodeState.Running)
             {
                 return state;
@@ -35,8 +36,8 @@ namespace AIShooterDemo
                 return NodeState.Success;
             }
 
-            Debug.Log($"Child failed, reiterate {iterated}/{iterations}");
-            child.Init(context);
+            Debug.Log($"{child.Name} failed, reiterate {iterated}/{iterations}");
+            child.Init(agent);
             return NodeState.Running;
         }
     }

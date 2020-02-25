@@ -2,7 +2,8 @@ namespace AIShooterDemo
 {
     public interface INode
     {
-        void Init(ICharacter context);
-        NodeState Process(float timeDelta, ICharacter context);
+        string Name { get; }
+        void Init(ICharacter agent);
+        NodeState Process(float timeDelta, ICharacter agent);
     }
 }

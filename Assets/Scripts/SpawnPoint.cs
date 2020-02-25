@@ -23,7 +23,7 @@ namespace AIShooterDemo
             {
                 if (spawned == null || spawned.IsDead)
                 {
-                    spawned = factory.CreateCharacter(transform.position, data.CharacterType, data.CharacterBehaviourType, data.CharacterBehaviourTemplate, levelData);
+                    spawned = factory.CreateCharacter(transform.position, data.CharacterType, data.CharacterBehaviourType, data.CharacterBehaviourTemplate, data.CharacterName, data.Team, levelData);
                 }
                 yield return new WaitForSeconds(data.Timeout);
             }

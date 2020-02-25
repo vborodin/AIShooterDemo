@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ce859cb3412dd4cae9617fb1fe2209, type: 3}
   m_Name: DefaultSpawnPoint
   m_EditorClassIdentifier: 
-  timeout: 5
+  timeout: 999
   characterType: MockupCharacter
   characterBehaviourType: AI
-  characterBehaviourTemplate: Walker
+  characterBehaviourTemplate: Test
   characterFactoryType: MockupFactory
+  team: Enemies
+  characterName: Mockup

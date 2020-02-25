@@ -19,5 +19,11 @@ namespace AIShooterDemo
 
         [SerializeField] private string characterFactoryType = "MockupFactory";
         public string CharacterFactoryType => characterFactoryType;
+
+        [SerializeField] private string team = "Enemies";
+        public string Team => team;
+
+        [SerializeField] private string characterName = "Mockup";
+        public string CharacterName => characterName;
     }
 }
