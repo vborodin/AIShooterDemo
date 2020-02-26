@@ -20,15 +20,17 @@ namespace AIShooterDemo
                 return NodeState.Failure;
             }
             //closest hostile character
-            ICharacter enemy = possibleTargets.Aggregate((cur, x) =>
-                                (
-                                    cur == null ||
-                                    (
-                                        x.IsHostileTo(agent) &&
-                                        (x.Position - agent.Position).magnitude < (cur.Position - agent.Position).magnitude
-                                    )
-                                ) ? x : cur);
-            agent.Target = enemy;
+            ICharacter current = agent.Target;
+            foreach (ICharacter target in possibleTargets)
+            {
+                if (target.IsHostileTo(agent) &&
+                    (current == null || (target.Position - agent.Position).magnitude < (current.Position - agent.Position).magnitude))
+                {
+                    current = target;
+                }
+            }
+
+            agent.Target = current;
             return NodeState.Success;
         }
     }

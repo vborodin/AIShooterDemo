@@ -13,7 +13,7 @@ namespace AIShooterDemo
 
         public NodeState Process(float timeDelta, ICharacter agent)
         {
-            Vector3 target = agent.Destination;
+            Vector3 target = agent.Waypoint;
             target = new Vector3(target.x, agent.Position.y, target.z);
             agent.LookAt(target);
             return NodeState.Success;

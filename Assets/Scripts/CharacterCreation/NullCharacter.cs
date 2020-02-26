@@ -11,7 +11,7 @@ namespace AIShooterDemo
 
         public Vector3 Position => Vector3.zero;
 
-        public Vector3 Destination => Vector3.zero;
+        public Vector3 Waypoint => Vector3.zero;
 
         public bool IsDead => true;
 
@@ -20,6 +20,8 @@ namespace AIShooterDemo
         public string Team => "";
 
         public bool AtDestination => false;
+
+        public bool TargetInRange => false;
 
         public void Attack()
         {
@@ -53,6 +55,11 @@ namespace AIShooterDemo
         }
 
         public void Init(CharacterData data, ILevelData level, string name, string team)
+        {
+
+        }
+
+        public void SetDestination(Vector3 destination)
         {
 
         }

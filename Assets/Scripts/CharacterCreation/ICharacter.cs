@@ -8,10 +8,11 @@ namespace AIShooterDemo
         string Name { get; }
         float Health { get; }
         Vector3 Position { get; }
-        Vector3 Destination { get; }
+        Vector3 Waypoint { get; }
         bool AtDestination { get; }
         bool IsDead { get; }
         ICharacter Target { get; set; }
+        bool TargetInRange { get; }
         string Team { get; }
 
         void MoveForward(float deltaTime);
@@ -20,6 +21,7 @@ namespace AIShooterDemo
         void TakeDamage(float damage, ICharacter sender);
         IEnumerable<ICharacter> Watch();
         bool IsHostileTo(ICharacter target);
+        void SetDestination(Vector3 destination);
 
         void Init(CharacterData data, ILevelData level, string name, string team);
     }

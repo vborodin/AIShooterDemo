@@ -9,7 +9,15 @@ namespace AIShooterDemo
 
         private void Update()
         {
+            if (character == null || character.IsDead)
+            {
+                Destroy(this);
+            }
             NodeState state = tree.Process(Time.deltaTime, character);
+            if (state != NodeState.Running)
+            {
+                tree.Init(character);
+            }
         }
 
         protected override void Init()

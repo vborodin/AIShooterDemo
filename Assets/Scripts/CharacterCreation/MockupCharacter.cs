@@ -13,7 +13,7 @@ namespace AIShooterDemo
         public string Name { get; private set; }
         public float Health { get; private set; }
         public Vector3 Position => transform.position;
-        public Vector3 Destination => navMeshAgent.steeringTarget;
+        public Vector3 Waypoint => navMeshAgent.steeringTarget;
         public bool IsDead => Health <= 0;
         public ICharacter Target { get; set; }
         public string Team { get; private set; }
@@ -33,6 +33,18 @@ namespace AIShooterDemo
                     return false;
                 }
                 return true;
+            }
+        }
+
+        public bool TargetInRange
+        {
+            get
+            {
+                if (Target == null)
+                {
+                    return false;
+                }
+                return (Position - Target.Position).magnitude < data.AttackDistance;
             }
         }
 
@@ -71,9 +83,12 @@ namespace AIShooterDemo
 
         public void Attack()
         {
-            Debug.Log($"{this.Name} attacks {this.Target.Name} telepathically!");
             //or it can spawn bullets
-            this.Target.TakeDamage(data.Damage, this);
+            if (Target != null && (Position - Target.Position).magnitude < data.AttackDistance)
+            {
+                Debug.Log($"{this.Name} attacks {this.Target.Name} telepathically!");
+                this.Target.TakeDamage(data.Damage, this);
+            }
         }
 
         public void TakeDamage(float damage, ICharacter sender)
@@ -121,6 +136,11 @@ namespace AIShooterDemo
                 return false;
             }
             return true;
+        }
+
+        public void SetDestination(Vector3 destination)
+        {
+            navMeshAgent.destination = destination;
         }
     }
 }

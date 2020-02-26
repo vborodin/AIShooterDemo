@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Settings
   m_EditorClassIdentifier: 
   levelProvider: Mockup
-  playerType: Robot
+  playerType: Zombie
   playerBehaviourType: AI
   playerBehaviourTemplate: Walker
   playerFactoryType: MockupFactory

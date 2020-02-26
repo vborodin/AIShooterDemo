@@ -1,35 +1,33 @@
-using UnityEngine;
-
 namespace AIShooterDemo
 {
-    public class RepeaterNode : INode
+    public class TimeRepeaterNode : INode
     {
+        public string Name => "TimeRepeater";
+
         INode child;
-        int iterations;
-        int iterated;
+        float repeatTime;
+        float timeSpent;
 
-        public string Name => "Repeater";
-
-        public RepeaterNode(INode child, int iterations)
+        public TimeRepeaterNode(INode child, float time)
         {
             this.child = child;
-            this.iterations = iterations;
+            repeatTime = time;
         }
 
         public void Init(ICharacter agent)
         {
-            iterated = 0;
+            timeSpent = 0;
             child.Init(agent);
         }
 
         public NodeState Process(float timeDelta, ICharacter agent)
         {
-            if (iterated > iterations)
+            if (timeSpent > repeatTime)
             {
                 return NodeState.Success;
             }
             child.Process(timeDelta, agent);
-            iterated++;
+            timeSpent += timeDelta;
             return NodeState.Running;
         }
     }

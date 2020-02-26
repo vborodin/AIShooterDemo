@@ -11,7 +11,7 @@ namespace AIShooterDemo
 
         public Vector3 Position => gameObject.transform.position;
 
-        public Vector3 Destination => gameObject.transform.position;
+        public Vector3 Waypoint => gameObject.transform.position;
 
         public bool IsDead => false;
 
@@ -20,6 +20,8 @@ namespace AIShooterDemo
         public string Team => "";
 
         public bool AtDestination => false;
+
+        public bool TargetInRange => false;
 
         public void Attack()
         {
@@ -42,6 +44,11 @@ namespace AIShooterDemo
         }
 
         public void MoveForward(float deltaTime)
+        {
+
+        }
+
+        public void SetDestination(Vector3 destination)
         {
 
         }

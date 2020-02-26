@@ -14,6 +14,7 @@ namespace AIShooterDemo
         {
             levelData = GetComponentInParent<ILevelData>();
             factory = CharacterFactoryBase.Create(data.CharacterFactoryType);
+            spawned = factory.CreateCharacter(transform.position, data.CharacterType, data.CharacterBehaviourType, data.CharacterBehaviourTemplate, data.CharacterName, data.Team, levelData);
             StartCoroutine(SpawnCoroutine());
         }
 
@@ -23,9 +24,10 @@ namespace AIShooterDemo
             {
                 if (spawned == null || spawned.IsDead)
                 {
+                    yield return new WaitForSeconds(data.Timeout);
                     spawned = factory.CreateCharacter(transform.position, data.CharacterType, data.CharacterBehaviourType, data.CharacterBehaviourTemplate, data.CharacterName, data.Team, levelData);
                 }
-                yield return new WaitForSeconds(data.Timeout);
+                yield return new WaitForSeconds(1);
             }
         }
     }
