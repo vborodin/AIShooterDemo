@@ -19,6 +19,8 @@ namespace AIShooterDemo
 
         public string Team => throw new System.NotImplementedException();
 
+        public bool AtDestination => false;
+
         public void Attack()
         {
             throw new System.NotImplementedException();

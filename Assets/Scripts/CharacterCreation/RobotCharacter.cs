@@ -19,6 +19,8 @@ namespace AIShooterDemo
 
         public string Team => "";
 
+        public bool AtDestination => false;
+
         public void Attack()
         {
 

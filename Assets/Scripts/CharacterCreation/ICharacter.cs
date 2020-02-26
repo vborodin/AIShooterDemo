@@ -9,6 +9,7 @@ namespace AIShooterDemo
         float Health { get; }
         Vector3 Position { get; }
         Vector3 Destination { get; }
+        bool AtDestination { get; }
         bool IsDead { get; }
         ICharacter Target { get; set; }
         string Team { get; }

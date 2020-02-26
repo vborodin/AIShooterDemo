@@ -18,6 +18,24 @@ namespace AIShooterDemo
         public ICharacter Target { get; set; }
         public string Team { get; private set; }
 
+        public bool AtDestination
+        {
+            get
+            {
+                Vector3 delta = this.Position - levelData.Destination;
+                if (delta.magnitude > navMeshAgent.height)
+                {
+                    return false;
+                }
+                delta.y = 0;
+                if (delta.magnitude > navMeshAgent.radius)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+
         private ILevelData levelData;
         private CharacterData data;
 
@@ -44,8 +62,11 @@ namespace AIShooterDemo
 
         public void LookAt(Vector3 target)
         {
-            Vector3 direction = (target - transform.position).normalized;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 30f);
+            Vector3 direction = target - transform.position;
+            if (direction.magnitude > navMeshAgent.radius)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction.normalized), Time.deltaTime * 30f);
+            }
         }
 
         public void Attack()

@@ -19,6 +19,7 @@ namespace AIShooterDemo
                                     new AttackNode()
                                 }
                             ),
+                            new AtDestinationNode(),
                             new SequenceNode(
                                 new INode[] {
                                     new LookAlongPathNode(),
@@ -31,7 +32,7 @@ namespace AIShooterDemo
                     break;
                 default:
                     Debug.LogWarning($"Unknown behaviour template: {behaviourTemplate}");
-                    tree = new LookAtTargetNode();
+                    tree = new NullNode();
                     break;
             }
             return tree;

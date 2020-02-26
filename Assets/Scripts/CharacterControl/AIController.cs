@@ -10,10 +10,6 @@ namespace AIShooterDemo
         private void Update()
         {
             NodeState state = tree.Process(Time.deltaTime, character);
-            if (state != NodeState.Running)
-            {
-                tree.Init(character);
-            }
         }
 
         protected override void Init()
@@ -25,7 +21,7 @@ namespace AIShooterDemo
             }
             else
             {
-                tree = new AttackNode();
+                tree = new NullNode();
                 Debug.LogWarning("Behaviour tree is not set. Use SetData method to set it right after creation.");
             }
         }
