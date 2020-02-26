@@ -15,7 +15,7 @@ MonoBehaviour:
   timeout: 10
   characterType: Zombie
   characterBehaviourType: AI
-  characterBehaviourTemplate: Test
+  characterBehaviourTemplate: Zombie
   characterFactoryType: MockupFactory
   team: Enemies
   characterName: Mockup
