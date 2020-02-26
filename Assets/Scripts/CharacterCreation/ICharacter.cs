@@ -19,5 +19,7 @@ namespace AIShooterDemo
         void TakeDamage(float damage, ICharacter sender);
         IEnumerable<ICharacter> Watch();
         bool IsHostileTo(ICharacter target);
+
+        void Init(CharacterData data, ILevelData level, string name, string team);
     }
 }
