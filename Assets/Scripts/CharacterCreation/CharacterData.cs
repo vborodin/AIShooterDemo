@@ -14,6 +14,9 @@ namespace AIShooterDemo
         public float AttackDistance => attackDistance;
         [SerializeField] private float attackDistance = 1;
 
+        public float AttackRate => attackRate;
+        [SerializeField] private float attackRate = 2;
+
         public float Speed => speed;
         [SerializeField] private float speed = 1;
 
@@ -21,7 +24,7 @@ namespace AIShooterDemo
         [SerializeField] private float fov = 60;
 
         public float FullFOVDistance => fullFOVDistance;
-        [SerializeField] private float fullFOVDistance = 3;
+        [SerializeField] private float fullFOVDistance = 2;
 
         public GameObject Prefab => prefab;
         [SerializeField] private GameObject prefab = null;

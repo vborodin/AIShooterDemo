@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.AI;
+using System.Collections;
 
 namespace AIShooterDemo
 {
@@ -52,13 +53,24 @@ namespace AIShooterDemo
         CharacterData data;
         ILevelData levelData;
 
+        bool isAttacking = false;
+        private IEnumerator AttackCoroutine(float rate)
+        {
+            isAttacking = true;
+            float attackTime = 1f / rate;
+            yield return new WaitForSeconds(attackTime);
+            isAttacking = false;
+            animator.SetBool("attack", false);
+        }
         public void Attack()
         {
             //need autotargeting for manual control
-            if (Target != null && (Position - Target.Position).magnitude < data.AttackDistance)
+            if (Target != null && (Position - Target.Position).magnitude < data.AttackDistance && !isAttacking)
             {
                 animator.SetBool("attack", true);
+                animator.SetBool("move", false);
                 Target.TakeDamage(data.Damage, this);
+                StartCoroutine(AttackCoroutine(data.AttackRate));
             }
         }
 
@@ -115,11 +127,11 @@ namespace AIShooterDemo
 
         public void TakeDamage(float damage, ICharacter sender)
         {
-            Debug.Log($"{this.Name} takes damage from {sender.Name}, {this.Health}/{data.Health} left!");
-            this.Health -= damage;
-            if (this.IsDead)
+            Debug.Log($"{Name} takes damage from {sender.Name}, {Health}/{data.Health} left!");
+            Health -= damage;
+            if (IsDead)
             {
-                Debug.Log($"{this.Name} is dead!");
+                Debug.Log($"{Name} is dead!");
                 animator.SetBool("dead", true);
             }
         }
@@ -164,10 +176,18 @@ namespace AIShooterDemo
         public IEnumerable<ICharacter> Watch()
         {
             //update list once per some period for optimization
+            foreach (ICharacter character in inSightRange)
+            {
+
+            }
+
             return inSightRange.Where(x => !x.IsDead &&
                                             (
                                                 (x.Position - this.Position).magnitude < data.FullFOVDistance ||
-                                                (Vector3.Angle(x.Position - this.Position, transform.forward) < data.FOV && IsVisible(x))
+                                                (
+                                                    Vector3.Angle(x.Position - this.Position, transform.forward) < data.FOV &&
+                                                    IsVisible(x)
+                                                )
                                             )
                                         );
         }

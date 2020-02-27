@@ -1,6 +1,6 @@
 namespace AIShooterDemo
 {
-    public class CanAttackNode : INode
+    public class TargetInRangeNode : INode
     {
         public string Name => "CanAttack";
 
