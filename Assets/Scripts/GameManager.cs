@@ -41,7 +41,7 @@ namespace AIShooterDemo
                     Debug.Log("You win!");
                     break;
                 case GameState.Loss:
-                    //Debug.Log("You lose!");
+                    Debug.Log("You lose!");
                     break;
                 default:
                     Debug.LogWarning($"Unknown game state: {state}");

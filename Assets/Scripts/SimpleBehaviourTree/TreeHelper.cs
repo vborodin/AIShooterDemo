@@ -75,7 +75,7 @@ namespace AIShooterDemo
             return new SequenceNode(
                 new INode[] {
                     new TimeRepeaterNode(
-                        MoveAlongPath(), 5f
+                        MoveAlongPath(), 3f
                     ),
                     new RandomDestinationNode()
                 }

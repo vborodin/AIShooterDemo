@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace AIShooterDemo
 {
     public class MoveForwardNode : INode

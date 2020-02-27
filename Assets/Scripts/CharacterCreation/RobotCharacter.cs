@@ -42,7 +42,7 @@ namespace AIShooterDemo
         {
             get
             {
-                if (Target == null)
+                if (Target == null || !IsVisible(Target))
                 {
                     return false;
                 }
@@ -138,8 +138,8 @@ namespace AIShooterDemo
 
         public void TakeDamage(float damage, ICharacter sender)
         {
-            Debug.Log($"{Name} takes damage from {sender.Name}, {Health}/{data.Health} left!");
             Health -= damage;
+            Debug.Log($"{Name} takes damage from {sender.Name}, {Health}/{data.Health} left!");
             if (IsDead)
             {
                 Debug.Log($"{Name} is dead!");
@@ -148,7 +148,7 @@ namespace AIShooterDemo
         }
 
         #region sight methods
-        private List<ICharacter> inSightRange = new List<ICharacter>();
+        private HashSet<ICharacter> inSightRange = new HashSet<ICharacter>();
         private void OnTriggerEnter(Collider other)
         {
             ICharacter character = other.gameObject.GetComponent<ICharacter>();
@@ -169,6 +169,7 @@ namespace AIShooterDemo
         {
             Vector3 origin = Position;
             Vector3 direction = other.Position - origin;
+            origin.y += 1.5f;
             direction.y = 0;
             RaycastHit hitInfo;
             float distance = direction.magnitude + 1;
@@ -186,12 +187,6 @@ namespace AIShooterDemo
 
         public IEnumerable<ICharacter> Watch()
         {
-            //update list once per some period for optimization
-            foreach (ICharacter character in inSightRange)
-            {
-
-            }
-
             return inSightRange.Where(x => !x.IsDead &&
                                             (
                                                 (x.Position - this.Position).magnitude < data.FullFOVDistance ||

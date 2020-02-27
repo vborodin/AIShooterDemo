@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DefaultSpawnPoint
   m_EditorClassIdentifier: 
   timeout: 10
-  characterType: Zombie
+  characterType: Robot
   characterBehaviourType: AI
   characterBehaviourTemplate: Zombie
   characterFactoryType: MockupFactory
