@@ -53,19 +53,19 @@ namespace AIShooterDemo
         {
             return new SequenceNode(
                 new INode[] {
-                    new FindEnemyNode(),
-                    new LookAtTargetNode(),
                     new SelectorNode(
                         new INode[] {
+                            new TargetInRangeNode(),
                             new SequenceNode(
                                 new INode[] {
-                                    new TargetInRangeNode(),
-                                    new AttackNode()
+                                    new FindEnemyNode(),
+                                    new TargetInRangeNode()
                                 }
-                            ),
-                            new MoveForwardNode()
+                            )
                         }
-                    )
+                    ),
+                    new LookAtTargetNode(),
+                    new AttackNode()
                 }
             );
         }

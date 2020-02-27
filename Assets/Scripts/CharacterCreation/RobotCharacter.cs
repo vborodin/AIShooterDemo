@@ -138,6 +138,10 @@ namespace AIShooterDemo
 
         public void TakeDamage(float damage, ICharacter sender)
         {
+            if (Target == null)
+            {
+                Target = sender;
+            }
             Health -= damage;
             Debug.Log($"{Name} takes damage from {sender.Name}, {Health}/{data.Health} left!");
             if (IsDead)

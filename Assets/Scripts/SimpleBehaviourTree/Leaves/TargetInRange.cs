@@ -11,7 +11,7 @@ namespace AIShooterDemo
 
         public NodeState Process(float timeDelta, ICharacter agent)
         {
-            if (agent.TargetInRange)
+            if (agent.TargetInRange && !agent.Target.IsDead)
             {
                 return NodeState.Success;
             }
