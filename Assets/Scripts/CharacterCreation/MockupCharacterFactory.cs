@@ -8,6 +8,11 @@ namespace AIShooterDemo
         {
             //to get CharacterData from another sources implement another factory
             CharacterData characterData = Resources.Load<CharacterData>($"Characters/{characterType}");
+            if (characterData == null)
+            {
+                Debug.LogWarning($"Character data for {characterType} not found.");
+                return new NullCharacter();
+            }
             GameObject character = GameObject.Instantiate(characterData.Prefab, position, Quaternion.identity);
 
             ICharacter charComponent = character.GetComponent<ICharacter>();
