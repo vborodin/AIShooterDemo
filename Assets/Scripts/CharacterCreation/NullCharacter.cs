@@ -5,7 +5,7 @@ namespace AIShooterDemo
 {
     public class NullCharacter : ICharacter
     {
-        public string Name => "";
+        public string Name => "Nobody";
 
         public float Health => 0;
 
@@ -58,7 +58,7 @@ namespace AIShooterDemo
             return watched;
         }
 
-        public void Init(CharacterData data, ILevelData level, string name, string team)
+        public void Init(CharacterData data, LevelDataBase level, string name, string team)
         {
 
         }

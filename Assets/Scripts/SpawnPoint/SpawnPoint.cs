@@ -8,11 +8,11 @@ namespace AIShooterDemo
         [SerializeField] SpawnPointData data;
         ICharacter spawned;
         CharacterFactoryBase factory;
-        ILevelData levelData;
+        LevelDataBase levelData;
 
         private void Start()
         {
-            levelData = GetComponentInParent<ILevelData>();
+            levelData = GetComponentInParent<LevelDataBase>();
             factory = CharacterFactoryBase.Create(data.CharacterFactoryType);
             spawned = factory.CreateCharacter(transform.position, data.CharacterType, data.CharacterBehaviourType, data.CharacterBehaviourTemplate, data.CharacterName, data.Team, levelData);
             StartCoroutine(SpawnCoroutine());
@@ -20,14 +20,21 @@ namespace AIShooterDemo
 
         private IEnumerator SpawnCoroutine()
         {
-            while (true)
+            while (!levelData.IsFinished)
             {
                 if (spawned == null || spawned.IsDead)
                 {
                     yield return new WaitForSeconds(data.Timeout);
-                    spawned = factory.CreateCharacter(transform.position, data.CharacterType, data.CharacterBehaviourType, data.CharacterBehaviourTemplate, data.CharacterName, data.Team, levelData);
+                    if (!levelData.IsFinished)
+                    {
+                        spawned = factory.CreateCharacter(transform.position, data.CharacterType, data.CharacterBehaviourType, data.CharacterBehaviourTemplate, data.CharacterName, data.Team, levelData);
+                    }
                 }
                 yield return new WaitForSeconds(1);
+            }
+            if (spawned != null && !spawned.IsDead)
+            {
+                spawned.TakeDamage(spawned.Health * 2, new NullCharacter());
             }
         }
     }

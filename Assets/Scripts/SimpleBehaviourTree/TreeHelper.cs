@@ -28,10 +28,10 @@ namespace AIShooterDemo
             return new SelectorNode(
                 FallbackCheck(),
                 FindAndAttackTarget(),
-                new AtDestinationNode(),
                 new InverterNode(
                     new RestoreDestinationNode()
                 ),
+                new AtDestinationNode(),
                 MoveAlongPath()
             );
         }
@@ -47,6 +47,7 @@ namespace AIShooterDemo
         private static INode FallbackCheck()
         {
             return new SequenceNode(
+                new TargetValidationNode(),
                 new InverterNode(
                     new AtDestinationNode()
                 ),

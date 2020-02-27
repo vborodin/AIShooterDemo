@@ -52,12 +52,12 @@ namespace AIShooterDemo
 
         public Vector3 LookVector => transform.forward;
 
-        private ILevelData levelData;
+        private LevelDataBase levelData;
         private CharacterData data;
 
         private NavMeshAgent agent;
 
-        public void Init(CharacterData data, ILevelData levelData, string name, string team)
+        public void Init(CharacterData data, LevelDataBase levelData, string name, string team)
         {
             Health = data.Health;
             this.levelData = levelData;

@@ -26,6 +26,6 @@ namespace AIShooterDemo
         void SetDestination(Vector3 destination);
         void RestoreDestination();
 
-        void Init(CharacterData data, ILevelData level, string name, string team);
+        void Init(CharacterData data, LevelDataBase level, string name, string team);
     }
 }

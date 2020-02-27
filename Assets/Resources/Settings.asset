@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Settings
   m_EditorClassIdentifier: 
   levelProvider: Mockup
-  playerType: Robot
+  playerType: RobotPlayer
   playerBehaviourType: AI
-  playerBehaviourTemplate: Walker
+  playerBehaviourTemplate: Player
   playerFactoryType: MockupFactory
   solverType: PassThrough
   distanceEpsilon: 1.5

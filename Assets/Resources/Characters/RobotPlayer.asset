@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef65471fe3588b43ab2d3b40dcd4ba5, type: 3}
   m_Name: RobotPlayer
   m_EditorClassIdentifier: 
-  health: 100
-  damage: 1
-  attackDistance: 1
-  attackRate: 2
-  speed: 1
+  health: 10000
+  damage: 100
+  attackDistance: 10
+  attackRate: 5
+  speed: 5
   fov: 60
-  fullFOVDistance: 2
-  prefab: {fileID: 0}
+  fullFOVDistance: 3
+  prefab: {fileID: 2836004475591695743, guid: f432554f564e69242897607d34218939, type: 3}

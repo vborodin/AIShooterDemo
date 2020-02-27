@@ -8,8 +8,7 @@ namespace AIShooterDemo
         public ICollection<string> InputParams => inputParams;
         string[] inputParams = new string[2] { "position", "health" };
 
-        public GameState State => state;
-        GameState state = GameState.InProgress;
+        public GameState State { get; private set; }
 
         Vector3 destination;
         float delta;
@@ -24,17 +23,17 @@ namespace AIShooterDemo
         {
             if (input.GetValue<float>("health") <= 0)
             {
-                state = GameState.Loss;
+                State = GameState.Loss;
             }
             else if ((input.GetValue<Vector3>("position") - destination).magnitude < delta)
             {
-                state = GameState.Win;
+                State = GameState.Win;
             }
             else
             {
-                state = GameState.InProgress;
+                State = GameState.InProgress;
             }
-            return state;
+            return State;
         }
     }
 }

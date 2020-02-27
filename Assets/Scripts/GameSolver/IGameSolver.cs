@@ -10,6 +10,7 @@ namespace AIShooterDemo
 
         Requires an agreement about InputParams between GameManager и GameSolver
         */
+        GameState State { get; }
         GameState Update(GameSolverData input);
         ICollection<string> InputParams { get; }
     }

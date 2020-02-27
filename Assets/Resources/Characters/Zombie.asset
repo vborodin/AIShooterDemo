@@ -16,7 +16,7 @@ MonoBehaviour:
   damage: 100
   attackDistance: 1.5
   attackRate: 2
-  speed: 1
+  speed: 1.5
   fov: 60
   fullFOVDistance: 3
   prefab: {fileID: 1488028540786159131, guid: b124c16a0682f7a408a4c7a3a8ddac30, type: 3}

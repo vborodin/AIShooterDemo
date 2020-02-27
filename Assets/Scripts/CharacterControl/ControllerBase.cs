@@ -11,7 +11,7 @@ namespace AIShooterDemo
         protected abstract void Init();
         public abstract void SetData<T>(T data);
 
-        public static ControllerBase AddComponent(GameObject target, ILevelData levelData, string controllerType, string template)
+        public static ControllerBase AddComponent(GameObject target, LevelDataBase levelData, string controllerType, string template)
         {
             ControllerBase controller;
             switch (controllerType)

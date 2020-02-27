@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44ce859cb3412dd4cae9617fb1fe2209, type: 3}
+  m_Script: {fileID: 11500000, guid: 79e529e2c9b906c4c8454753db179a8d, type: 3}
   m_Name: DefaultSpawnPoint
   m_EditorClassIdentifier: 
-  timeout: 10
-  characterType: Robot
+  timeout: 5
+  characterType: MockupCharacter
   characterBehaviourType: AI
-  characterBehaviourTemplate: Zombie
+  characterBehaviourTemplate: Walker
   characterFactoryType: MockupFactory
   team: Enemies
   characterName: Mockup

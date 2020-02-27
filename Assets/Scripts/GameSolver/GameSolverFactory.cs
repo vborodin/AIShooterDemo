@@ -4,9 +4,9 @@ namespace AIShooterDemo
 {
     public class GameSolverFactory
     {
-        ILevelData levelData;
+        LevelDataBase levelData;
         Settings settings;
-        public GameSolverFactory(ILevelData levelData, Settings settings)
+        public GameSolverFactory(LevelDataBase levelData, Settings settings)
         {
             this.levelData = levelData;
             this.settings = settings;

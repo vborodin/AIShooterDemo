@@ -57,7 +57,7 @@ namespace AIShooterDemo
         Animator animator;
         NavMeshAgent agent;
         CharacterData data;
-        ILevelData levelData;
+        LevelDataBase levelData;
 
         bool isAttacking = false;
         private IEnumerator AttackCoroutine(float rate)
@@ -84,7 +84,7 @@ namespace AIShooterDemo
             }
         }
 
-        public void Init(CharacterData data, ILevelData level, string name, string team)
+        public void Init(CharacterData data, LevelDataBase level, string name, string team)
         {
             Health = data.Health;
             Name = name;

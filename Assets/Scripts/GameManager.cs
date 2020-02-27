@@ -17,7 +17,7 @@ namespace AIShooterDemo
             if (levels.MoveNext())
             {
                 GameObject level = Instantiate(levels.Current);
-                ILevelData levelData = level.GetComponent<ILevelData>();
+                LevelDataBase levelData = level.GetComponent<LevelDataBase>();
                 if (levelData == null)
                 {
                     Debug.LogWarning("Level doesn't contain any LevelData");
@@ -26,6 +26,7 @@ namespace AIShooterDemo
                 player = CreatePlayer(settings.PlayerType, settings.PlayerBehaviourType, settings.PlayerBehaviourTemplate, levelData, settings.PlayerFactoryType);
 
                 solver = CreateGameSolver(settings.SolverType, levelData, settings);
+                levelData.SetData(solver);
             }
         }
 
@@ -49,7 +50,7 @@ namespace AIShooterDemo
             }
         }
 
-        private IGameSolver CreateGameSolver(string solverType, ILevelData levelData, Settings settings)
+        private IGameSolver CreateGameSolver(string solverType, LevelDataBase levelData, Settings settings)
         {
             GameSolverFactory factory = new GameSolverFactory(levelData, settings);
             IGameSolver solver = factory.CreateGameSolver(solverType);
@@ -77,7 +78,7 @@ namespace AIShooterDemo
             return data;
         }
 
-        private ICharacter CreatePlayer(string playerType, string behaviourType, string behaviourTemplate, ILevelData levelData, string factoryType)
+        private ICharacter CreatePlayer(string playerType, string behaviourType, string behaviourTemplate, LevelDataBase levelData, string factoryType)
         {
             CharacterFactoryBase characterFactory = CharacterFactoryBase.Create(factoryType);
             return characterFactory.CreateCharacter(levelData.StartPosition, playerType, behaviourType, behaviourTemplate, "Player", "Player", levelData);
