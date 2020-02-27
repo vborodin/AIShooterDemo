@@ -22,7 +22,7 @@ namespace AIShooterDemo
         {
             get
             {
-                Vector3 delta = this.Position - levelData.Destination;
+                Vector3 delta = this.Position - agent.destination;
                 if (delta.magnitude > agent.height)
                 {
                     return false;
@@ -47,6 +47,10 @@ namespace AIShooterDemo
                 return (Position - Target.Position).magnitude < data.AttackDistance;
             }
         }
+
+        public float AttackRange => data.AttackDistance;
+
+        public Vector3 LookVector => transform.forward;
 
         Animator animator;
         NavMeshAgent agent;
@@ -83,6 +87,7 @@ namespace AIShooterDemo
             levelData = level;
 
             animator = GetComponent<Animator>();
+            animator.speed = data.Speed;
             agent = GetComponent<NavMeshAgent>();
             agent.destination = levelData.Destination;
             agent.updatePosition = false;
@@ -190,6 +195,14 @@ namespace AIShooterDemo
         public void SetDestination(Vector3 destination)
         {
             agent.destination = destination;
+        }
+
+        public void RestoreDestination()
+        {
+            if (agent.destination != levelData.Destination)
+            {
+                agent.destination = levelData.Destination;
+            }
         }
     }
 }

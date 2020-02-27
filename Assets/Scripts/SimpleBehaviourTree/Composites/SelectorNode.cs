@@ -9,7 +9,7 @@ namespace AIShooterDemo
 
         public string Name => "Selector";
 
-        public SelectorNode(ICollection<INode> children)
+        public SelectorNode(params INode[] children)
         {
             this.children = children;
         }

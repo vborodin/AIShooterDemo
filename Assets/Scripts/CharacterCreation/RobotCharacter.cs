@@ -24,13 +24,13 @@ namespace AIShooterDemo
         {
             get
             {
-                Vector3 delta = this.Position - levelData.Destination;
+                Vector3 delta = this.Position - agent.destination;
                 if (delta.magnitude > agent.height)
                 {
                     return false;
                 }
                 delta.y = 0;
-                if (delta.magnitude > agent.radius)
+                if (delta.magnitude > agent.radius * 2)
                 {
                     return false;
                 }
@@ -49,6 +49,10 @@ namespace AIShooterDemo
                 return (Position - Target.Position).magnitude < data.AttackDistance;
             }
         }
+
+        public float AttackRange => data.AttackDistance;
+
+        public Vector3 LookVector => transform.forward;
 
         Animator animator;
         NavMeshAgent agent;
@@ -110,7 +114,7 @@ namespace AIShooterDemo
             direction.y = 0;
             if (direction.magnitude > agent.radius)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction.normalized), Time.deltaTime * 5f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction.normalized), Time.deltaTime * 10f);
             }
         }
 
@@ -200,6 +204,14 @@ namespace AIShooterDemo
                                                 )
                                             )
                                         );
+        }
+
+        public void RestoreDestination()
+        {
+            if (agent.destination != levelData.Destination)
+            {
+                agent.destination = levelData.Destination;
+            }
         }
     }
 }

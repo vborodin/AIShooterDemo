@@ -9,14 +9,8 @@ namespace AIShooterDemo
             INode tree;
             switch (behaviourTemplate)
             {
-                case "Walker":
-                    tree = new SelectorNode(
-                        new INode[] {
-                            AttackVisibleEnemy(),
-                            new AtDestinationNode(),
-                            MoveAlongPath()
-                        }
-                    );
+                case "Player":
+                    tree = PlayerBehaviour();
                     break;
                 case "Zombie":
                     tree = ZombieBehaviour();
@@ -29,56 +23,81 @@ namespace AIShooterDemo
             return tree;
         }
 
+        private static INode PlayerBehaviour()
+        {
+            return new SelectorNode(
+                FallbackCheck(),
+                FindAndAttackTarget(),
+                new AtDestinationNode(),
+                new InverterNode(
+                    new RestoreDestinationNode()
+                ),
+                MoveAlongPath()
+            );
+        }
+
         private static INode ZombieBehaviour()
         {
             return new SelectorNode(
-                new INode[] {
-                    AttackVisibleEnemy(),
-                    RandomMovement()
-                }
+                FindAndAttackTarget(),
+                RandomMovement(2)
+            );
+        }
+
+        private static INode FallbackCheck()
+        {
+            return new SequenceNode(
+                new InverterNode(
+                    new AtDestinationNode()
+                ),
+                new AskByTimeoutNode(
+                    new SequenceNode(
+                        new NeedFallbackNode(),
+                        new FallbackPositionNode()
+                    ), 2f
+                ),
+                MoveAlongPath()
             );
         }
 
         private static INode MoveAlongPath()
         {
             return new SequenceNode(
-                new INode[] {
-                    new LookAlongPathNode(),
-                    new MoveForwardNode()
-                }
+                new LookAlongPathNode(),
+                new MoveForwardNode()
             );
         }
 
-        private static INode AttackVisibleEnemy()
+        private static INode FindAndAttackTarget()
         {
             return new SequenceNode(
-                new INode[] {
                     new SelectorNode(
-                        new INode[] {
-                            new TargetInRangeNode(),
-                            new SequenceNode(
-                                new INode[] {
-                                    new FindEnemyNode(),
-                                    new TargetInRangeNode()
-                                }
-                            )
-                        }
+                        new TargetValidationNode(),
+                        new FindEnemyNode()
                     ),
-                    new LookAtTargetNode(),
-                    new AttackNode()
-                }
+                    new SelectorNode(
+                        new SequenceNode(
+                            new TargetInRangeNode(),
+                            new LookAtTargetNode(),
+                            new AttackNode()
+                        ),
+                        new SequenceNode(
+                            new DestinationToTargetNode(),
+                            MoveAlongPath()
+                        )
+                    )
             );
         }
 
-        private static INode RandomMovement()
+        private static INode RandomMovement(float time)
         {
             return new SequenceNode(
-                new INode[] {
+                new InverterNode(
                     new TimeRepeaterNode(
-                        MoveAlongPath(), 3f
-                    ),
-                    new RandomDestinationNode()
-                }
+                        MoveAlongPath(), time
+                    )
+                ),
+                new RandomDestinationNode()
             );
         }
     }

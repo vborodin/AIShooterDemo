@@ -23,6 +23,10 @@ namespace AIShooterDemo
 
         public bool TargetInRange => false;
 
+        public float AttackRange => 0;
+
+        public Vector3 LookVector => Vector3.zero;
+
         public void Attack()
         {
 
@@ -60,6 +64,11 @@ namespace AIShooterDemo
         }
 
         public void SetDestination(Vector3 destination)
+        {
+
+        }
+
+        public void RestoreDestination()
         {
 
         }

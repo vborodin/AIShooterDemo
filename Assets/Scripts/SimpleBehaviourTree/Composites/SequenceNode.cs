@@ -9,7 +9,7 @@ namespace AIShooterDemo
 
         public string Name => "Sequence";
 
-        public SequenceNode(ICollection<INode> children)
+        public SequenceNode(params INode[] children)
         {
             this.children = children;
         }

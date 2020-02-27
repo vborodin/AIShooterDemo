@@ -13,7 +13,7 @@ namespace AIShooterDemo
         public string Name { get; private set; }
         public float Health { get; private set; }
         public Vector3 Position => transform.position;
-        public Vector3 Waypoint => navMeshAgent.steeringTarget;
+        public Vector3 Waypoint => agent.steeringTarget;
         public bool IsDead => Health <= 0;
         public ICharacter Target { get; set; }
         public string Team { get; private set; }
@@ -22,13 +22,13 @@ namespace AIShooterDemo
         {
             get
             {
-                Vector3 delta = this.Position - levelData.Destination;
-                if (delta.magnitude > navMeshAgent.height)
+                Vector3 delta = this.Position - agent.destination;
+                if (delta.magnitude > agent.height)
                 {
                     return false;
                 }
                 delta.y = 0;
-                if (delta.magnitude > navMeshAgent.radius)
+                if (delta.magnitude > agent.radius)
                 {
                     return false;
                 }
@@ -48,10 +48,14 @@ namespace AIShooterDemo
             }
         }
 
+        public float AttackRange => data.AttackDistance;
+
+        public Vector3 LookVector => transform.forward;
+
         private ILevelData levelData;
         private CharacterData data;
 
-        private NavMeshAgent navMeshAgent;
+        private NavMeshAgent agent;
 
         public void Init(CharacterData data, ILevelData levelData, string name, string team)
         {
@@ -61,21 +65,21 @@ namespace AIShooterDemo
             this.data = data;
             Name = name;
 
-            navMeshAgent = GetComponent<NavMeshAgent>();
-            navMeshAgent.destination = levelData.Destination;
-            navMeshAgent.updatePosition = true;
-            navMeshAgent.isStopped = true;
+            agent = GetComponent<NavMeshAgent>();
+            agent.destination = levelData.Destination;
+            agent.updatePosition = true;
+            agent.isStopped = true;
         }
 
         public void MoveForward(float deltaTime)
         {
-            navMeshAgent.Move(transform.forward * data.Speed * deltaTime);
+            agent.Move(transform.forward * data.Speed * deltaTime);
         }
 
         public void LookAt(Vector3 target)
         {
             Vector3 direction = target - transform.position;
-            if (direction.magnitude > navMeshAgent.radius)
+            if (direction.magnitude > agent.radius)
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction.normalized), Time.deltaTime * 30f);
             }
@@ -140,7 +144,15 @@ namespace AIShooterDemo
 
         public void SetDestination(Vector3 destination)
         {
-            navMeshAgent.destination = destination;
+            agent.destination = destination;
+        }
+
+        public void RestoreDestination()
+        {
+            if (agent.destination != levelData.Destination)
+            {
+                agent.destination = levelData.Destination;
+            }
         }
     }
 }

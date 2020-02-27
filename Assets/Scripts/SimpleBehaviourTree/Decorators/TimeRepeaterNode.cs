@@ -24,7 +24,7 @@ namespace AIShooterDemo
         {
             if (timeSpent > repeatTime)
             {
-                return NodeState.Success;
+                return NodeState.Failure;
             }
             child.Process(timeDelta, agent);
             timeSpent += timeDelta;
