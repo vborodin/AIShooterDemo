@@ -6,15 +6,13 @@ using System.Collections;
 
 namespace AIShooterDemo
 {
-    [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(NavMeshAgent))]
     public class ZombieCharacter : MonoBehaviour, ICharacter
     {
         public string Name { get; private set; }
         public float Health { get; private set; }
         public float Power { get; private set; }
         public Vector3 Position => transform.position;
-        public Vector3 Waypoint => agent.steeringTarget;
+        public Vector3 Waypoint => agent ? agent.steeringTarget : Vector3.zero;
         public bool IsDead => Health <= 0;
         public ICharacter Target { get; set; }
         public string Team { get; private set; }
@@ -113,6 +111,7 @@ namespace AIShooterDemo
 
         public void LookAt(Vector3 target)
         {
+            if (IsDead) return;
             Vector3 direction = target - transform.position;
             direction.y = 0;
             if (direction.magnitude > agent.radius)
@@ -123,6 +122,7 @@ namespace AIShooterDemo
 
         void OnAnimatorMove()
         {
+            if (IsDead) return;
             Vector3 position = animator.rootPosition;
             position.y = agent.nextPosition.y;
             transform.position = position;
@@ -133,6 +133,7 @@ namespace AIShooterDemo
 
         public void MoveForward(float deltaTime)
         {
+            if (IsDead) return;
             agent.Move(transform.forward * data.Speed * deltaTime);
             animator.SetBool("move", true);
             animator.SetBool("attack", false);
@@ -147,6 +148,12 @@ namespace AIShooterDemo
             {
                 Debug.Log($"{Name} is dead!");
                 animator.SetBool("dead", true);
+                Collider[] colliders = GetComponents<Collider>();
+                foreach (Collider collider in colliders)
+                {
+                    Destroy(collider);
+                }
+                Destroy(agent);
             }
         }
 
@@ -203,6 +210,7 @@ namespace AIShooterDemo
 
         public void SetDestination(Vector3 destination)
         {
+            if (IsDead) return;
             agent.destination = destination;
         }
 
