@@ -5,7 +5,7 @@ namespace AIShooterDemo
 {
     public class SpawnPoint : MonoBehaviour
     {
-        [SerializeField] SpawnPointData data;
+        [SerializeField] SpawnPointData data = null;
         ICharacter spawned;
         CharacterFactoryBase factory;
         LevelDataBase levelData;

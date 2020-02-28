@@ -8,11 +8,14 @@ namespace AIShooterDemo
         IEnumerator<GameObject> levels;
         ICharacter player;
         IGameSolver solver;
+        UIManagerBase uiManager;
 
         private void Start()
         {
             Settings settings = Resources.Load<Settings>("Settings");
             levels = LoadLevels(settings.LevelProvider);
+
+            uiManager = FindObjectOfType<UIManagerBase>();
 
             if (levels.MoveNext())
             {
@@ -32,6 +35,10 @@ namespace AIShooterDemo
 
         private void Update()
         {
+            if (solver.State != GameState.InProgress)
+            {
+                return;
+            }
             GameState state = solver.Update(CollectGameSolverData(solver.InputParams));
             switch (state)
             {
@@ -39,10 +46,10 @@ namespace AIShooterDemo
                     //Debug.Log("In progress...");
                     break;
                 case GameState.Win:
-                    Debug.Log("You win!");
+                    uiManager.ShowMessage("You win!", 5f, delegate () { Debug.Log("Test win action"); });
                     break;
                 case GameState.Loss:
-                    Debug.Log("You lose!");
+                    uiManager.ShowMessage("You died", 5f, delegate () { Debug.Log("Test loss action"); });
                     break;
                 default:
                     Debug.LogWarning($"Unknown game state: {state}");

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79e529e2c9b906c4c8454753db179a8d, type: 3}
   m_Name: DefaultSpawnPoint
   m_EditorClassIdentifier: 
-  timeout: 5
-  characterType: MockupCharacter
+  timeout: 10
+  characterType: Zombie
   characterBehaviourType: AI
-  characterBehaviourTemplate: Walker
+  characterBehaviourTemplate: Zombie
   characterFactoryType: MockupFactory
   team: Enemies
-  characterName: Mockup
+  characterName: Zombie
