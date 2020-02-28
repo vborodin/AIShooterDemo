@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace AIShooterDemo
 {
-    public class TeamCharacter : ICharacter
+    public class TeamCharacter : MonoBehaviour, ICharacter
     {
         ICharacter Leader
         {
@@ -18,11 +18,6 @@ namespace AIShooterDemo
             }
         }
         ICollection<ICharacter> team;
-
-        public TeamCharacter(ICollection<ICharacter> team)
-        {
-            this.team = team;
-        }
 
         public string Name => Leader.Name;
         public float Health
@@ -56,6 +51,10 @@ namespace AIShooterDemo
         public void Init(CharacterData data, LevelDataBase level, string team)
         {
 
+        }
+        public void Init(ICollection<ICharacter> team)
+        {
+            this.team = team;
         }
         public bool IsHostileTo(ICharacter target)
         {

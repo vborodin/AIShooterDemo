@@ -219,7 +219,7 @@ namespace AIShooterDemo
             while (!IsDead)
             {
                 Vector3 relativeDestination = levelData.Destination - Position;
-                if (relativeDestination.magnitude < 5f)
+                if (relativeDestination.magnitude < 15f)
                 {
                     destinationWithRandom = levelData.Destination;
                 }

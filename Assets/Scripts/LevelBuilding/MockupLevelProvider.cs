@@ -7,7 +7,11 @@ namespace AIShooterDemo
     {
         public override IEnumerator<GameObject> GetEnumerator()
         {
-            yield return Resources.Load<GameObject>("MockupLevelProvider/MockupLevel");
+            GameObject level = Resources.Load<GameObject>("MockupLevelProvider/MockupLevel");
+            for (int i = 0; i < 1000; i++)
+            {
+                yield return level;
+            }
         }
     }
 }

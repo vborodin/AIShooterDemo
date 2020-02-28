@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace AIShooterDemo
 {
@@ -17,9 +19,32 @@ namespace AIShooterDemo
         {
             settings = Resources.Load<Settings>("Settings");
             levels = LoadLevels(settings.LevelProvider);
-
             uiManager = FindObjectOfType<UIManagerBase>();
+            Restart();
+        }
 
+        private void Cleanup()
+        {
+            IEnumerable<ICharacter> characters = FindObjectsOfType<MonoBehaviour>().OfType<ICharacter>();
+            foreach (ICharacter character in characters)
+            {
+                Destroy(((MonoBehaviour)character).gameObject);
+            }
+            IEnumerable<LevelDataBase> levelDatas = FindObjectsOfType<LevelDataBase>();
+            foreach (LevelDataBase levelData in levelDatas)
+            {
+                Destroy((levelData).gameObject);
+            }
+            IEnumerable<Collider> colliders = FindObjectsOfType<Collider>();
+            foreach (Collider collider in colliders)
+            {
+                Destroy(collider.gameObject);
+            }
+        }
+
+        private void Restart()
+        {
+            Cleanup();
             if (levels.MoveNext())
             {
                 GameObject level = Instantiate(levels.Current);
@@ -37,6 +62,12 @@ namespace AIShooterDemo
             }
         }
 
+        private IEnumerator RestartCoroutine(float timeout)
+        {
+            yield return new WaitForSeconds(timeout);
+            Restart();
+        }
+
         private void Update()
         {
             if (solver.State != GameState.InProgress)
@@ -51,6 +82,7 @@ namespace AIShooterDemo
                     break;
                 case GameState.Win:
                     uiManager.ShowMessage("You win!", 5f, delegate () { Debug.Log("Test win action"); });
+                    StartCoroutine(RestartCoroutine(5f));
                     break;
                 case GameState.Loss:
                     uiManager.ShowMessage("You died", 5f, delegate () { Debug.Log("Test loss action"); });

@@ -21,7 +21,9 @@ namespace AIShooterDemo
             {
                 characters.Add(CreateSingleCharacter(position, team, levelData, preset));
             }
-            ICharacter character = new TeamCharacter(characters);
+            GameObject teamCharacter = new GameObject();
+            TeamCharacter character = teamCharacter.AddComponent<TeamCharacter>();
+            character.Init(characters);
             return character;
         }
 
