@@ -12,6 +12,7 @@ namespace AIShooterDemo
     {
         public string Name { get; private set; }
         public float Health { get; private set; }
+        public float Power { get; private set; }
         public Vector3 Position => transform.position;
         public Vector3 Waypoint => agent.steeringTarget;
         public bool IsDead => Health <= 0;
@@ -94,16 +95,18 @@ namespace AIShooterDemo
             {
                 Debug.Log($"{this.Name} attacks {this.Target.Name} telepathically!");
                 this.Target.TakeDamage(data.RandomizedDamage, this);
+                Power += data.PowerPerHit;
             }
         }
 
         public void TakeDamage(float damage, ICharacter sender)
         {
-            Debug.Log($"{this.Name} takes damage from {sender.Name}, {this.Health}/{data.Health} left!");
-            this.Health -= damage;
-            if (this.IsDead)
+            Debug.Log($"{Name} takes damage from {sender.Name}, {Health}/{data.Health} left!");
+            Health -= damage;
+            Power += data.PowerPerHit;
+            if (IsDead)
             {
-                Debug.Log($"{this.Name} is dead!");
+                Debug.Log($"{Name} is dead!");
                 Destroy(gameObject);
             }
         }
@@ -155,6 +158,16 @@ namespace AIShooterDemo
             {
                 agent.destination = levelData.Destination;
             }
+        }
+
+        public void CastAbility(ICharacter target)
+        {
+
+        }
+
+        public bool CanCastAbility()
+        {
+            return false;
         }
     }
 }

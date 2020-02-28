@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Player
   health: 10000
-  damage: 100
+  damage: 200
+  powerPerHit: 1
+  abilityData: {fileID: 11400000, guid: ca8f1c0180ce3a34f82ae51cf7bdfc0c, type: 2}
   attackDistance: 10
   attackRate: 5
-  speed: 5
+  speed: 4
   fov: 60
   fullFOVDistance: 3
   prefab: {fileID: 2836004475591695743, guid: f432554f564e69242897607d34218939, type: 3}

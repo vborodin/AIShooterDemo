@@ -29,6 +29,8 @@ namespace AIShooterDemo
 
         public Vector3 Destination => Vector3.zero;
 
+        public float Power => 0;
+
         public void Attack()
         {
 
@@ -73,6 +75,16 @@ namespace AIShooterDemo
         public void RestoreDestination()
         {
 
+        }
+
+        public void CastAbility(ICharacter target)
+        {
+
+        }
+
+        public bool CanCastAbility()
+        {
+            return false;
         }
     }
 }

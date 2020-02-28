@@ -80,7 +80,10 @@ namespace AIShooterDemo
                         new SequenceNode(
                             new TargetInRangeNode(),
                             new LookAtTargetNode(),
-                            new AttackNode()
+                            new SelectorNode(
+                                new CastAbilityNode(),
+                                new AttackNode()
+                            )
                         ),
                         new SequenceNode(
                             new TargetValidationNode(),

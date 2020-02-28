@@ -14,8 +14,9 @@ namespace AIShooterDemo
 
         public string Name { get; private set; }
         public float Health { get; private set; }
+        public float Power { get; private set; }
         public Vector3 Position => transform.position;
-        public Vector3 Waypoint => agent.steeringTarget;
+        public Vector3 Waypoint => agent ? agent.steeringTarget : Vector3.zero;
         public bool IsDead => Health <= 0;
         public ICharacter Target { get; set; }
         public string Team { get; private set; }
@@ -60,6 +61,7 @@ namespace AIShooterDemo
         NavMeshAgent agent;
         CharacterData data;
         LevelDataBase levelData;
+        AbilityBase ability;
 
         bool isAttacking = false;
         private IEnumerator AttackCoroutine(float rate)
@@ -82,6 +84,7 @@ namespace AIShooterDemo
                 animator.SetBool("attack", true);
                 animator.SetBool("move", false);
                 Target.TakeDamage(data.RandomizedDamage, this);
+                Power += data.PowerPerHit;
                 StartCoroutine(AttackCoroutine(data.AttackRate));
             }
         }
@@ -93,6 +96,7 @@ namespace AIShooterDemo
             Team = team;
             this.data = data;
             levelData = level;
+            ability = AbilityBase.Create(data.AbilityData);
 
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
@@ -114,6 +118,7 @@ namespace AIShooterDemo
 
         public void LookAt(Vector3 target)
         {
+            if (IsDead) return;
             Vector3 direction = target - transform.position;
             direction.y = 0;
             if (direction.magnitude > agent.radius)
@@ -124,6 +129,7 @@ namespace AIShooterDemo
 
         void OnAnimatorMove()
         {
+            if (IsDead) return;
             Vector3 worldDeltaPosition = agent.nextPosition - transform.position;
             if (worldDeltaPosition.magnitude < agent.radius * 0.05f)
             {
@@ -134,6 +140,7 @@ namespace AIShooterDemo
 
         public void MoveForward(float deltaTime)
         {
+            if (IsDead) return;
             agent.Move(transform.forward * data.Speed * deltaTime);
             animator.SetBool("move", true);
             animator.SetBool("attack", false);
@@ -141,6 +148,7 @@ namespace AIShooterDemo
 
         public void SetDestination(Vector3 destination)
         {
+            if (IsDead) return;
             agent.destination = destination;
         }
 
@@ -151,11 +159,18 @@ namespace AIShooterDemo
                 Target = sender;
             }
             Health -= damage;
+            Power += data.PowerPerHit;
             Debug.Log($"{Name} takes damage from {sender.Name}, {Health}/{data.Health} left!");
             if (IsDead)
             {
                 Debug.Log($"{Name} is dead!");
                 animator.SetBool("dead", true);
+                Collider[] colliders = GetComponents<Collider>();
+                foreach (Collider collider in colliders)
+                {
+                    Destroy(collider);
+                }
+                Destroy(agent);
             }
         }
 
@@ -235,6 +250,20 @@ namespace AIShooterDemo
         public void RestoreDestination()
         {
             agent.destination = destinationWithRandom;
+        }
+
+        public void CastAbility(ICharacter target)
+        {
+            if (Power >= ability.Cost)
+            {
+                ability.Cast(this, target);
+                Power -= ability.Cost;
+            }
+        }
+
+        public bool CanCastAbility()
+        {
+            return Power >= ability.Cost;
         }
     }
 }

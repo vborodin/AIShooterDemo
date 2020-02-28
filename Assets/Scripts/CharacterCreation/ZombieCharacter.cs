@@ -12,6 +12,7 @@ namespace AIShooterDemo
     {
         public string Name { get; private set; }
         public float Health { get; private set; }
+        public float Power { get; private set; }
         public Vector3 Position => transform.position;
         public Vector3 Waypoint => agent.steeringTarget;
         public bool IsDead => Health <= 0;
@@ -58,6 +59,7 @@ namespace AIShooterDemo
         NavMeshAgent agent;
         CharacterData data;
         LevelDataBase levelData;
+        AbilityBase ability;
 
         bool isAttacking = false;
         private IEnumerator AttackCoroutine(float rate)
@@ -76,6 +78,7 @@ namespace AIShooterDemo
                 animator.SetBool("attack", true);
                 animator.SetBool("move", false);
                 Target.TakeDamage(data.RandomizedDamage, this);
+                Power += data.PowerPerHit;
                 StartCoroutine(AttackCoroutine(data.AttackRate));
             }
         }
@@ -87,6 +90,7 @@ namespace AIShooterDemo
             Team = team;
             this.data = data;
             levelData = level;
+            ability = AbilityBase.Create(data.AbilityData);
 
             animator = GetComponent<Animator>();
             animator.speed = data.Speed;
@@ -137,6 +141,7 @@ namespace AIShooterDemo
         public void TakeDamage(float damage, ICharacter sender)
         {
             Health -= damage;
+            Power += data.PowerPerHit;
             Debug.Log($"{Name} takes damage from {sender.Name}, {Health}/{data.Health} left!");
             if (IsDead)
             {
@@ -226,6 +231,20 @@ namespace AIShooterDemo
         public void RestoreDestination()
         {
             agent.destination = destinationWithRandom;
+        }
+
+        public void CastAbility(ICharacter target)
+        {
+            if (Power >= ability.Cost)
+            {
+                ability.Cast(this, target);
+                Power -= ability.Cost;
+            }
+        }
+
+        public bool CanCastAbility()
+        {
+            return Power >= ability.Cost;
         }
     }
 }

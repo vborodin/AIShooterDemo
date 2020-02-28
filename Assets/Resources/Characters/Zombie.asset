@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Zombie
   m_EditorClassIdentifier: 
   characterName: Zombie
-  health: 1000
+  health: 10000
   damage: 100
+  powerPerHit: 1
+  abilityData: {fileID: 0}
   attackDistance: 1.5
   attackRate: 2
   speed: 1.5

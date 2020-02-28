@@ -32,6 +32,7 @@ namespace AIShooterDemo
                 return team.Sum((x) => x.Health);
             }
         }
+        public float Power => 0f;
         public Vector3 Position => Leader.Position;
         public Vector3 LookVector => Vector3.zero;
         public Vector3 Waypoint => Vector3.zero;
@@ -83,6 +84,16 @@ namespace AIShooterDemo
         public IEnumerable<ICharacter> Watch()
         {
             return new ICharacter[0];
+        }
+
+        public void CastAbility(ICharacter target)
+        {
+
+        }
+
+        public bool CanCastAbility()
+        {
+            return false;
         }
     }
 }

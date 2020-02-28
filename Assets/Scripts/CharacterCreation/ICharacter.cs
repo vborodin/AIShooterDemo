@@ -7,6 +7,7 @@ namespace AIShooterDemo
     {
         string Name { get; }
         float Health { get; }
+        float Power { get; }
         Vector3 Position { get; }
         Vector3 LookVector { get; }
         Vector3 Waypoint { get; }
@@ -21,12 +22,13 @@ namespace AIShooterDemo
         void MoveForward(float deltaTime);
         void LookAt(Vector3 target);
         void Attack();
+        void CastAbility(ICharacter target);
+        bool CanCastAbility();
         void TakeDamage(float damage, ICharacter sender);
         IEnumerable<ICharacter> Watch();
         bool IsHostileTo(ICharacter target);
         void SetDestination(Vector3 destination);
         void RestoreDestination();
-
         void Init(CharacterData data, LevelDataBase level, string team);
     }
 }

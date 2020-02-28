@@ -15,6 +15,8 @@ MonoBehaviour:
   levelProvider: Mockup
   playerCharacters:
   - {fileID: 11400000, guid: 72b7fc46c6f49924bb91a86fe578034c, type: 2}
+  - {fileID: 11400000, guid: 72b7fc46c6f49924bb91a86fe578034c, type: 2}
+  - {fileID: 11400000, guid: 72b7fc46c6f49924bb91a86fe578034c, type: 2}
   playerFactoryType: MockupFactory
   solverType: PassThrough
   distanceEpsilon: 4
