@@ -88,7 +88,7 @@ namespace AIShooterDemo
         private ICharacter CreatePlayer(string playerType, string behaviourType, string behaviourTemplate, LevelDataBase levelData, string factoryType)
         {
             CharacterFactoryBase characterFactory = CharacterFactoryBase.Create(factoryType);
-            return characterFactory.CreateCharacter(levelData.StartPosition, playerType, behaviourType, behaviourTemplate, "Player", "Player", levelData);
+            return characterFactory.CreateCharacter(levelData.StartPosition, playerType, behaviourType, behaviourTemplate, "Player", levelData);
         }
 
         private IEnumerator<GameObject> LoadLevels(string providerName)

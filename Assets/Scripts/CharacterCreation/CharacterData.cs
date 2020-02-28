@@ -5,6 +5,9 @@ namespace AIShooterDemo
     [CreateAssetMenu]
     public class CharacterData : ScriptableObject
     {
+        public string Name => characterName;
+        [SerializeField] private string characterName = "Name";
+
         public float Health => health;
         [SerializeField] private float health = 100;
 

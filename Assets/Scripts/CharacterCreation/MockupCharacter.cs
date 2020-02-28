@@ -57,13 +57,13 @@ namespace AIShooterDemo
 
         private NavMeshAgent agent;
 
-        public void Init(CharacterData data, LevelDataBase levelData, string name, string team)
+        public void Init(CharacterData data, LevelDataBase levelData, string team)
         {
             Health = data.Health;
             this.levelData = levelData;
             this.Team = team;
             this.data = data;
-            Name = name;
+            Name = data.Name;
 
             agent = GetComponent<NavMeshAgent>();
             agent.destination = levelData.Destination;

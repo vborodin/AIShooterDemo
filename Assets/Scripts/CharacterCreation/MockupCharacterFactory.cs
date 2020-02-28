@@ -4,7 +4,7 @@ namespace AIShooterDemo
 {
     public class MockupCharacterFactory : CharacterFactoryBase
     {
-        public override ICharacter CreateCharacter(Vector3 position, string characterType, string controllerType, string behaviourTemplate, string name, string team, LevelDataBase levelData)
+        public override ICharacter CreateCharacter(Vector3 position, string characterType, string controllerType, string behaviourTemplate, string team, LevelDataBase levelData)
         {
             //to get CharacterData from another sources implement another factory
             CharacterData characterData = Resources.Load<CharacterData>($"Characters/{characterType}");
@@ -22,7 +22,7 @@ namespace AIShooterDemo
                 GameObject.Destroy(character);
                 return new NullCharacter();
             }
-            charComponent.Init(characterData, levelData, name, team);
+            charComponent.Init(characterData, levelData, team);
             ControllerBase.AddComponent(character, levelData, controllerType, behaviourTemplate);
 
             return charComponent;

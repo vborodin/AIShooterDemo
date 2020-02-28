@@ -58,7 +58,7 @@ namespace AIShooterDemo
             return watched;
         }
 
-        public void Init(CharacterData data, LevelDataBase level, string name, string team)
+        public void Init(CharacterData data, LevelDataBase level, string team)
         {
 
         }
