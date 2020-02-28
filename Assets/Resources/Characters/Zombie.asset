@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Zombie
   m_EditorClassIdentifier: 
   characterName: Zombie
-  health: 10000
+  health: 1000
   damage: 100
   powerPerHit: 1
   abilityData: {fileID: 0}
-  attackDistance: 1.5
+  attackDistance: 2.5
   attackRate: 2
   speed: 1.5
-  fov: 60
+  fov: 120
   fullFOVDistance: 3
   prefab: {fileID: 1488028540786159131, guid: b124c16a0682f7a408a4c7a3a8ddac30, type: 3}

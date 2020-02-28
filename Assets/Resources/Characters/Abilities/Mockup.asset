@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Mockup
   m_EditorClassIdentifier: 
   abilityName: Mockup
-  cost: 10
+  cost: 50
   damage: 10000
   view: {fileID: 9205012129312937961, guid: 4b3a2688d6e4f2a43962edd31311692d, type: 3}

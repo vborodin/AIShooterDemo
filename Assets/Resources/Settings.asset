@@ -21,4 +21,5 @@ MonoBehaviour:
   solverType: PassThrough
   distanceEpsilon: 4
   cameraVelocity: 7
-  cameraPosition: {x: -15, y: 15, z: 5}
+  cameraPosition: {x: -10, y: 15, z: 10}
+  difficultyProgression: 1.5

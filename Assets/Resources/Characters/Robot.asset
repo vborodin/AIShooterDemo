@@ -15,9 +15,11 @@ MonoBehaviour:
   characterName: Robot
   health: 1000
   damage: 100
+  powerPerHit: 1
+  abilityData: {fileID: 0}
   attackDistance: 15
   attackRate: 5
   speed: 3
-  fov: 60
+  fov: 120
   fullFOVDistance: 2
   prefab: {fileID: 2836004475591695743, guid: f432554f564e69242897607d34218939, type: 3}
