@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef65471fe3588b43ab2d3b40dcd4ba5, type: 3}
   m_Name: Zombie
   m_EditorClassIdentifier: 
+  characterName: Zombie
   health: 1000
   damage: 100
   attackDistance: 1.5

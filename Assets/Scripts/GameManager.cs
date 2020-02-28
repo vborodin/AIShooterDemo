@@ -5,14 +5,17 @@ namespace AIShooterDemo
 {
     public class GameManager : MonoBehaviour
     {
-        IEnumerator<GameObject> levels;
+        public Settings Settings => settings;
+        Settings settings;
+        public ICharacter Player => player;
         ICharacter player;
+        IEnumerator<GameObject> levels;
         IGameSolver solver;
         UIManagerBase uiManager;
 
         private void Start()
         {
-            Settings settings = Resources.Load<Settings>("Settings");
+            settings = Resources.Load<Settings>("Settings");
             levels = LoadLevels(settings.LevelProvider);
 
             uiManager = FindObjectOfType<UIManagerBase>();

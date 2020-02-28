@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef65471fe3588b43ab2d3b40dcd4ba5, type: 3}
   m_Name: MockupCharacter
   m_EditorClassIdentifier: 
+  characterName: Bobbie
   health: 100
   damage: 1
+  attackDistance: 1
   attackRate: 1
   speed: 5
+  fov: 60
+  fullFOVDistance: 2
   prefab: {fileID: 5020522391084741195, guid: 642a0d30a45a14e4dbe704596d797e86, type: 3}

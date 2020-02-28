@@ -11,7 +11,7 @@ namespace AIShooterDemo
         public float Health => health;
         [SerializeField] private float health = 100;
 
-        public float Damage => Random.Range(0.5f * damage, 1.5f * damage);
+        public float RandomizedDamage => Random.Range(0.5f * damage, 1.5f * damage);
         [SerializeField] private float damage = 1;
 
         public float AttackDistance => attackDistance;

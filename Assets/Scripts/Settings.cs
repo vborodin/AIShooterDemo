@@ -25,5 +25,11 @@ namespace AIShooterDemo
 
         [SerializeField] private float distanceEpsilon = 1.5f;
         public float DistanceEpsilon => distanceEpsilon;
+
+        [SerializeField] private float cameraVelocity = 10f;
+        public float CameraVelocity => cameraVelocity;
+
+        [SerializeField] private Vector3 cameraPosition = new Vector3(3, 10, 3);
+        public Vector3 CameraPosition => cameraPosition;
     }
 }

@@ -91,7 +91,7 @@ namespace AIShooterDemo
             if (Target != null && (Position - Target.Position).magnitude < data.AttackDistance)
             {
                 Debug.Log($"{this.Name} attacks {this.Target.Name} telepathically!");
-                this.Target.TakeDamage(data.Damage, this);
+                this.Target.TakeDamage(data.RandomizedDamage, this);
             }
         }
 

@@ -79,7 +79,7 @@ namespace AIShooterDemo
             {
                 animator.SetBool("attack", true);
                 animator.SetBool("move", false);
-                Target.TakeDamage(data.Damage, this);
+                Target.TakeDamage(data.RandomizedDamage, this);
                 StartCoroutine(AttackCoroutine(data.AttackRate));
             }
         }

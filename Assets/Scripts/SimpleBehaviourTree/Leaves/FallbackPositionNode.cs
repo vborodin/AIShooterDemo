@@ -13,7 +13,12 @@ namespace AIShooterDemo
 
         public NodeState Process(float timeDelta, ICharacter agent)
         {
-            agent.SetDestination(agent.Position + agent.LookVector * -5f);
+            Vector3 random = new Vector3(
+                Random.Range(-3f, 3f),
+                Random.Range(-3f, 3f),
+                Random.Range(-3f, 3f)
+            );
+            agent.SetDestination(agent.Position + agent.LookVector * -5f + random);
             return NodeState.Success;
         }
     }
