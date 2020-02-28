@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bfa728ba23a5574995f0322ea2a4b1e, type: 3}
   m_Name: AIRobotPlayerPreset
   m_EditorClassIdentifier: 
-  characterData: MockupCharacter
+  characterData: RobotPlayer
   behaviourType: AI
-  behaviourTemplate: Zombie
+  behaviourTemplate: Player

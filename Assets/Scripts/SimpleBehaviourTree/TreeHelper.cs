@@ -83,6 +83,7 @@ namespace AIShooterDemo
                             new AttackNode()
                         ),
                         new SequenceNode(
+                            new TargetValidationNode(),
                             new DestinationToTargetNode(),
                             MoveAlongPath()
                         )

@@ -13,11 +13,8 @@ MonoBehaviour:
   m_Name: DefaultSpawnPoint
   m_EditorClassIdentifier: 
   timeout: 10
-  characterTypePool:
-  - Robot
-  - Zombie
-  characterBehaviourType: AI
-  characterBehaviourTemplate: Zombie
+  spawnPool:
+  - {fileID: 11400000, guid: 00d6039260cc5784a97162fde8b89777, type: 2}
+  - {fileID: 11400000, guid: 3617dec47be4eba44901f4f1aea7c4ac, type: 2}
   characterFactoryType: MockupFactory
   team: Enemies
-  characterName: Zombie

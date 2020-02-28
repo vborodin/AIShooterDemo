@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Settings
   m_EditorClassIdentifier: 
   levelProvider: Mockup
-  playerType: RobotPlayer
-  playerBehaviourType: AI
-  playerBehaviourTemplate: Player
+  playerCharacters:
+  - {fileID: 11400000, guid: 72b7fc46c6f49924bb91a86fe578034c, type: 2}
   playerFactoryType: MockupFactory
   solverType: PassThrough
-  distanceEpsilon: 1.5
+  distanceEpsilon: 4
+  cameraVelocity: 7
+  cameraPosition: {x: -15, y: 15, z: 5}

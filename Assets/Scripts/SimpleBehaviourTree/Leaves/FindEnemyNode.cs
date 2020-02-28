@@ -23,10 +23,21 @@ namespace AIShooterDemo
             ICharacter current = agent.Target;
             foreach (ICharacter target in possibleTargets)
             {
-                if (target.IsHostileTo(agent) &&
+                if (agent.IsHostileTo(target) &&
                     (current == null || (target.Position - agent.Position).magnitude < (current.Position - agent.Position).magnitude))
                 {
                     current = target;
+                }
+                if (!agent.IsHostileTo(target) &&
+                    target.Target != null &&
+                    agent.IsHostileTo(target.Target) &&
+                    (
+                        current == null ||
+                        (target.Target.Position - agent.Position).magnitude < (current.Position - agent.Position).magnitude
+                    )
+                )
+                {
+                    current = target.Target;
                 }
             }
 

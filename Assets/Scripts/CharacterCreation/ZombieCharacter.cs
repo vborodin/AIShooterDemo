@@ -94,6 +94,8 @@ namespace AIShooterDemo
             agent.destination = levelData.Destination;
             agent.updatePosition = false;
             agent.isStopped = true;
+
+            StartCoroutine(HalfRandomDestinationCoroutine(0.5f));
         }
 
         public bool IsHostileTo(ICharacter target)
@@ -199,12 +201,31 @@ namespace AIShooterDemo
             agent.destination = destination;
         }
 
+        private IEnumerator HalfRandomDestinationCoroutine(float timeout)
+        {
+            while (!IsDead)
+            {
+                Vector3 relativeDestination = levelData.Destination - Position;
+                if (relativeDestination.magnitude < 5f)
+                {
+                    destinationWithRandom = levelData.Destination;
+                }
+                else
+                {
+                    float randomSize = relativeDestination.magnitude / 8;
+                    Vector3 random = new Vector3(Random.Range(-randomSize, randomSize), 0, Random.Range(-randomSize, randomSize));
+                    destinationWithRandom = Position + relativeDestination.normalized * relativeDestination.magnitude / 2 + random;
+                }
+
+                yield return new WaitForSeconds(timeout);
+            }
+        }
+
+        Vector3 destinationWithRandom;
+
         public void RestoreDestination()
         {
-            if (agent.destination != levelData.Destination)
-            {
-                agent.destination = levelData.Destination;
-            }
+            agent.destination = destinationWithRandom;
         }
     }
 }
