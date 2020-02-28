@@ -29,6 +29,6 @@ namespace AIShooterDemo
         bool IsHostileTo(ICharacter target);
         void SetDestination(Vector3 destination);
         void RestoreDestination();
-        void Init(CharacterData data, LevelDataBase level, string team);
+        void Init(CharacterData data, LevelDataBase level, string team, float difficultyModifier);
     }
 }

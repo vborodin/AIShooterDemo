@@ -25,6 +25,7 @@ namespace AIShooterDemo
         {
             get
             {
+                if (IsDead) return true;
                 Vector3 delta = this.Position - agent.destination;
                 if (delta.y > agent.height)
                 {
@@ -62,6 +63,7 @@ namespace AIShooterDemo
         CharacterData data;
         LevelDataBase levelData;
         AbilityBase ability;
+        float difficultyModifier;
 
         bool isAttacking = false;
         private IEnumerator AttackCoroutine(float rate)
@@ -89,9 +91,10 @@ namespace AIShooterDemo
             }
         }
 
-        public void Init(CharacterData data, LevelDataBase level, string team)
+        public void Init(CharacterData data, LevelDataBase level, string team, float difficultyModifier)
         {
-            Health = data.Health;
+            Health = data.Health * difficultyModifier;
+            this.difficultyModifier = difficultyModifier;
             Name = data.Name;
             Team = team;
             this.data = data;
@@ -160,7 +163,7 @@ namespace AIShooterDemo
             }
             Health -= damage;
             Power += data.PowerPerHit;
-            Debug.Log($"{Name} takes damage from {sender.Name}, {Health}/{data.Health} left!");
+            Debug.Log($"{Name} takes damage from {sender.Name}, {Health}/{data.Health * difficultyModifier} left!");
             if (IsDead)
             {
                 Debug.Log($"{Name} is dead!");
@@ -249,6 +252,7 @@ namespace AIShooterDemo
 
         public void RestoreDestination()
         {
+            if (IsDead) return;
             agent.destination = destinationWithRandom;
         }
 

@@ -60,9 +60,9 @@ namespace AIShooterDemo
 
         private NavMeshAgent agent;
 
-        public void Init(CharacterData data, LevelDataBase levelData, string team)
+        public void Init(CharacterData data, LevelDataBase levelData, string team, float difficultyModifier)
         {
-            Health = data.Health;
+            Health = data.Health * difficultyModifier;
             this.levelData = levelData;
             Team = team;
             this.data = data;

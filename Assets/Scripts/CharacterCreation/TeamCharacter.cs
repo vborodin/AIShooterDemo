@@ -48,7 +48,7 @@ namespace AIShooterDemo
         {
 
         }
-        public void Init(CharacterData data, LevelDataBase level, string team)
+        public void Init(CharacterData data, LevelDataBase level, string team, float difficultyModifier)
         {
 
         }

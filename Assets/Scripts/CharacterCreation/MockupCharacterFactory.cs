@@ -5,7 +5,7 @@ namespace AIShooterDemo
 {
     public class MockupCharacterFactory : CharacterFactoryBase
     {
-        public override ICharacter CreateCharacter(Vector3 position, string team, LevelDataBase levelData, params ICharacterPreset[] characterPresets)
+        public override ICharacter CreateCharacter(Vector3 position, string team, LevelDataBase levelData, float difficultyModifier, params ICharacterPreset[] characterPresets)
         {
             if (characterPresets.Length == 0)
             {
@@ -13,13 +13,13 @@ namespace AIShooterDemo
             }
             if (characterPresets.Length == 1)
             {
-                return CreateSingleCharacter(position, team, levelData, characterPresets[0]);
+                return CreateSingleCharacter(position, team, levelData, characterPresets[0], difficultyModifier);
             }
 
             List<ICharacter> characters = new List<ICharacter>();
             foreach (ICharacterPreset preset in characterPresets)
             {
-                characters.Add(CreateSingleCharacter(position, team, levelData, preset));
+                characters.Add(CreateSingleCharacter(position, team, levelData, preset, difficultyModifier));
             }
             GameObject teamCharacter = new GameObject();
             TeamCharacter character = teamCharacter.AddComponent<TeamCharacter>();
@@ -27,7 +27,7 @@ namespace AIShooterDemo
             return character;
         }
 
-        private ICharacter CreateSingleCharacter(Vector3 position, string team, LevelDataBase levelData, ICharacterPreset preset)
+        private ICharacter CreateSingleCharacter(Vector3 position, string team, LevelDataBase levelData, ICharacterPreset preset, float difficultyModifier)
         {
             CharacterData characterData = Resources.Load<CharacterData>($"Characters/{preset.CharacterData}");
             if (characterData == null)
@@ -44,7 +44,7 @@ namespace AIShooterDemo
                 GameObject.Destroy(character);
                 return new NullCharacter();
             }
-            charComponent.Init(characterData, levelData, team);
+            charComponent.Init(characterData, levelData, team, difficultyModifier);
             ControllerBase.AddComponent(character, levelData, preset.BehaviourType, preset.BehaviourTemplate);
 
             return charComponent;

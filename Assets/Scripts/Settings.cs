@@ -26,5 +26,8 @@ namespace AIShooterDemo
 
         [SerializeField] private Vector3 cameraPosition = new Vector3(3, 10, 3);
         public Vector3 CameraPosition => cameraPosition;
+
+        [SerializeField] private float difficultyProgression = 1.5f;
+        public float DifficultyProgression => difficultyProgression;
     }
 }

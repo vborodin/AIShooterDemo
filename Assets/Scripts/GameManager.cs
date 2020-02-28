@@ -10,6 +10,7 @@ namespace AIShooterDemo
         public Settings Settings => settings;
         Settings settings;
         public ICharacter Player => player;
+        public float Difficulty { get; private set; }
         ICharacter player;
         IEnumerator<GameObject> levels;
         IGameSolver solver;
@@ -20,6 +21,7 @@ namespace AIShooterDemo
             settings = Resources.Load<Settings>("Settings");
             levels = LoadLevels(settings.LevelProvider);
             uiManager = FindObjectOfType<UIManagerBase>();
+            Difficulty = 1.0f;
             Restart();
         }
 
@@ -55,7 +57,7 @@ namespace AIShooterDemo
                 }
 
                 CharacterFactoryBase characterFactory = CharacterFactoryBase.Create(settings.PlayerFactoryType);
-                player = characterFactory.CreateCharacter(levelData.StartPosition, "Player", levelData, settings.PlayerCharacters);
+                player = characterFactory.CreateCharacter(levelData.StartPosition, "Player", levelData, 1.0f, settings.PlayerCharacters);
 
                 solver = CreateGameSolver(settings.SolverType, levelData, settings);
                 levelData.SetData(solver);
@@ -82,6 +84,7 @@ namespace AIShooterDemo
                     break;
                 case GameState.Win:
                     uiManager.ShowMessage("You win!", 5f, delegate () { Debug.Log("Test win action"); });
+                    Difficulty *= settings.DifficultyProgression;
                     StartCoroutine(RestartCoroutine(5f));
                     break;
                 case GameState.Loss:
