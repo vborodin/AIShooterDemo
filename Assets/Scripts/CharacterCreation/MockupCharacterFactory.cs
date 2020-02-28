@@ -1,16 +1,36 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AIShooterDemo
 {
     public class MockupCharacterFactory : CharacterFactoryBase
     {
-        public override ICharacter CreateCharacter(Vector3 position, string characterType, string controllerType, string behaviourTemplate, string team, LevelDataBase levelData)
+        public override ICharacter CreateCharacter(Vector3 position, string team, LevelDataBase levelData, params ICharacterPreset[] characterPresets)
         {
-            //to get CharacterData from another sources implement another factory
-            CharacterData characterData = Resources.Load<CharacterData>($"Characters/{characterType}");
+            if (characterPresets.Length == 0)
+            {
+                return new NullCharacter();
+            }
+            if (characterPresets.Length == 1)
+            {
+                return CreateSingleCharacter(position, team, levelData, characterPresets[0]);
+            }
+
+            List<ICharacter> characters = new List<ICharacter>();
+            foreach (ICharacterPreset preset in characterPresets)
+            {
+                characters.Add(CreateSingleCharacter(position, team, levelData, preset));
+            }
+            ICharacter character = new TeamCharacter(characters);
+            return character;
+        }
+
+        private ICharacter CreateSingleCharacter(Vector3 position, string team, LevelDataBase levelData, ICharacterPreset preset)
+        {
+            CharacterData characterData = Resources.Load<CharacterData>($"Characters/{preset.CharacterData}");
             if (characterData == null)
             {
-                Debug.LogWarning($"Character data for {characterType} not found.");
+                Debug.LogWarning($"Character data for {preset.CharacterData} not found.");
                 return new NullCharacter();
             }
             GameObject character = GameObject.Instantiate(characterData.Prefab, position, Quaternion.identity);
@@ -23,7 +43,7 @@ namespace AIShooterDemo
                 return new NullCharacter();
             }
             charComponent.Init(characterData, levelData, team);
-            ControllerBase.AddComponent(character, levelData, controllerType, behaviourTemplate);
+            ControllerBase.AddComponent(character, levelData, preset.BehaviourType, preset.BehaviourTemplate);
 
             return charComponent;
         }

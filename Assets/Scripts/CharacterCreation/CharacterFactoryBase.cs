@@ -4,7 +4,7 @@ namespace AIShooterDemo
 {
     public abstract class CharacterFactoryBase
     {
-        public abstract ICharacter CreateCharacter(Vector3 position, string characterType, string behaviourType, string behaviourTemplate, string team, LevelDataBase levelData);
+        public abstract ICharacter CreateCharacter(Vector3 position, string team, LevelDataBase levelData, params ICharacterPreset[] characterPresets);
 
         public static CharacterFactoryBase Create(string factoryType)
         {

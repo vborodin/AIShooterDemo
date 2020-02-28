@@ -23,12 +23,12 @@ namespace AIShooterDemo
             get
             {
                 Vector3 delta = this.Position - agent.destination;
-                if (delta.magnitude > agent.height)
+                if (delta.y > agent.height)
                 {
                     return false;
                 }
                 delta.y = 0;
-                if (delta.magnitude > agent.radius)
+                if (delta.magnitude > agent.radius * 2f)
                 {
                     return false;
                 }
@@ -52,6 +52,8 @@ namespace AIShooterDemo
 
         public Vector3 LookVector => transform.forward;
 
+        public Vector3 Destination => agent.destination;
+
         private LevelDataBase levelData;
         private CharacterData data;
 
@@ -61,7 +63,7 @@ namespace AIShooterDemo
         {
             Health = data.Health;
             this.levelData = levelData;
-            this.Team = team;
+            Team = team;
             this.data = data;
             Name = data.Name;
 

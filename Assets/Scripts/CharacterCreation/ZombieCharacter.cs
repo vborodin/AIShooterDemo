@@ -28,7 +28,7 @@ namespace AIShooterDemo
                     return false;
                 }
                 delta.y = 0;
-                if (delta.magnitude > agent.radius)
+                if (delta.magnitude > agent.radius * 2f)
                 {
                     return false;
                 }
@@ -51,6 +51,8 @@ namespace AIShooterDemo
         public float AttackRange => data.AttackDistance;
 
         public Vector3 LookVector => transform.forward;
+
+        public Vector3 Destination => agent.destination;
 
         Animator animator;
         NavMeshAgent agent;

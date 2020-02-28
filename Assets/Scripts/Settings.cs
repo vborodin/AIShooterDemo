@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AIShooterDemo
@@ -8,14 +9,8 @@ namespace AIShooterDemo
         [SerializeField] private string levelProvider = "Mockup";
         public string LevelProvider => levelProvider;
 
-        [SerializeField] private string playerType = "MockupCharacter";
-        public string PlayerType => playerType;
-
-        [SerializeField] private string playerBehaviourType = "AI";
-        public string PlayerBehaviourType => playerBehaviourType;
-
-        [SerializeField] private string playerBehaviourTemplate = "Walker";
-        public string PlayerBehaviourTemplate => playerBehaviourTemplate;
+        [SerializeField] private ScriptableCharacterPreset[] playerCharacters = new ScriptableCharacterPreset[0];
+        public ICharacterPreset[] PlayerCharacters => playerCharacters;
 
         [SerializeField] private string playerFactoryType = "MockupFactory";
         public string PlayerFactoryType => playerFactoryType;

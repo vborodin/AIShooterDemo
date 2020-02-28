@@ -27,6 +27,8 @@ namespace AIShooterDemo
 
         public Vector3 LookVector => Vector3.zero;
 
+        public Vector3 Destination => Vector3.zero;
+
         public void Attack()
         {
 

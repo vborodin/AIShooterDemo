@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AIShooterDemo
@@ -8,24 +9,20 @@ namespace AIShooterDemo
         [SerializeField] private float timeout = 5f;
         public float Timeout => timeout;
 
-        [SerializeField] private string[] characterTypePool = new string[] { "Zombie" };
-        public string CharacterType
+        [SerializeField] private ScriptableCharacterPreset[] spawnPool = new ScriptableCharacterPreset[0];
+        public ICollection<ICharacterPreset> SpawnPool => spawnPool;
+        public ICharacterPreset RandomPreset
         {
             get
             {
-                if (characterTypePool == null || characterTypePool.Length == 0)
+                if (spawnPool.Length == 0)
                 {
-                    return "";
+                    Debug.LogWarning("Spawn pool is empty.");
+                    return new NullCharacterPreset();
                 }
-                return characterTypePool[Random.Range(0, characterTypePool.Length)];
+                return spawnPool[Random.Range(0, spawnPool.Length)];
             }
         }
-
-        [SerializeField] private string characterBehaviourType = "AI";
-        public string CharacterBehaviourType => characterBehaviourType;
-
-        [SerializeField] private string characterBehaviourTemplate = "Zombie";
-        public string CharacterBehaviourTemplate => characterBehaviourTemplate;
 
         [SerializeField] private string characterFactoryType = "MockupFactory";
         public string CharacterFactoryType => characterFactoryType;
